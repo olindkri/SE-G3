@@ -10,7 +10,7 @@
 ## Prototype
 
 **Write the following commands in the terminal or powershell:**
-> Make sure you are inside the /Guideena directory.
+> Make sure you are inside the /SE-G3 directory.
 
 &nbsp;&nbsp;&nbsp;&nbsp;`pip install --user virtualenv`
 
