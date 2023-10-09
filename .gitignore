@@ -1,5 +1,8 @@
 /.venv/
 /venv/
+/.env/
+/env/
 /.idea/
 .pyc
 *.pyc
+.DS_Store
