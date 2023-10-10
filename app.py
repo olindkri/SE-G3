@@ -23,6 +23,16 @@ def get_post(post_id):
     return post
 
 
+def get_user(user_id):
+    conn = get_db_connection()
+    user = conn.execute('SELECT * FROM user WHERE id = ?',
+                        (user_id,)).fetchone()
+    conn.close()
+    if user is None:
+        abort(404)
+    return user
+
+
 @app.route('/user/', methods=('GET', 'POST'))
 def user():
     if request.method == 'POST':
@@ -44,6 +54,15 @@ def index():
     posts = conn.execute('SELECT * FROM posts WHERE byUser = ?', (user_id,)).fetchall()
     conn.close()
     return render_template('index.html', posts=posts)
+
+
+@app.route('/profile/')
+def profile():
+    global user_id
+    conn = get_db_connection()
+    user = conn.execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
+    conn.close()
+    return render_template('profile.html', user=user)
 
 
 @app.route('/create/', methods=('GET', 'POST'))

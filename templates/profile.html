@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Profile {% endblock %}</h1>
+<div class='post'>
+    <h2>{{ user['firstname'] }}</h2>
+    <h3>{{ user['lastname'] }}</h3>
+    <h3>{{ user['age'] }}</h3>
+    <h3>{{ user['country'] }}</h3>
+</div>
+{% endblock %}
