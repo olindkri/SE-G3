@@ -4,8 +4,9 @@
 <h1>{% block title %} Choose a user {% endblock %}</h1>
 
 <form method="post" action="/user/">
-    <input type="submit" value="1" name="user1"/>
-    <input type="submit" value="2" name="user2"/>
+    <button id="user-button" type="submit" value="1" name="user1">User 1</button>
+    <br>
+    <button id="user-button" type="submit" value="2" name="user2">User 2</button>
 </form>
 
 {% endblock %}

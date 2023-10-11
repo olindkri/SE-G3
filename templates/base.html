@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}- Guide</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend&family=Montserrat&family=Onest:wght@700&family=Rubik&display=swap');
+
         .post {
             padding: 10px;
             margin: 5px;
@@ -12,9 +14,10 @@
 
         nav a {
             color: #d64161;
-            font-size: 3em;
+            font-size: 2.5em;
             margin-left: 50px;
             text-decoration: none;
+            font-family: 'Onest', sans-serif;
         }
 
         .alert {
@@ -22,6 +25,57 @@
             margin: 5px;
             color: #970020;
             background-color: #ffd5de;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        p {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        a {
+            font-family: 'Rubik', sans-serif;
+            text-decoration: none;
+        }
+
+        #user-button {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.2em;
+            margin: 5px;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+        }
+
+        label {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        input {
+            border: 2px solid #ccc;
+            width: 15em;
+            height: 2.5em;
+            padding-left: 0.8em;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            overflow: hidden;
+            background-color: #F3F3F3;
+            border-radius: 10px;
+            transition: all 0.5s;
+        }
+
+        textarea {
+            height: 150px;
+            padding: 12px 0.8em;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f8f8f8;
+            font-size: 16px;
         }
 
     </style>
@@ -36,7 +90,7 @@
 <hr>
 <div class="content">
     {% for message in get_flashed_messages() %}
-    <div class="alert">{{ message }}</div>
+        <div class="alert">{{ message }}</div>
     {% endfor %}
 
     {% block content %} {% endblock %}
