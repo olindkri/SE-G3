@@ -51,9 +51,10 @@ def user():
 def index():
     global user_id
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts WHERE byUser = ?', (user_id,)).fetchall()
+    posts = conn.execute('SELECT * FROM posts WHERE NOT byUser = ?', (user_id,)).fetchall()
+    user = conn.execute('SELECT * FROM user, posts WHERE NOT user.id = ? AND user.id = posts.byUser', (user_id,)).fetchone()
     conn.close()
-    return render_template('index.html', posts=posts)
+    return render_template('index.html', user=user, posts=posts)
 
 
 @app.route('/profile/')
