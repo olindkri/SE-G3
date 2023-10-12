@@ -52,14 +52,27 @@ def index():
     global user_id
     conn = get_db_connection()
     posts = conn.execute('SELECT * FROM posts WHERE NOT byUser = ?', (user_id,)).fetchall()
-    user = conn.execute('SELECT * FROM user, posts WHERE NOT user.id = ? AND user.id = posts.byUser', (user_id,)).fetchone()
+    user = conn.execute('SELECT * FROM user, posts WHERE NOT user.id = ? AND user.id = posts.byUser',
+                        (user_id,)).fetchone()
     conn.close()
     return render_template('index.html', user=user, posts=posts)
 
 
-@app.route('/profile/')
+@app.route('/my-guides/')
+def guides():
+    global user_id
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM posts WHERE byUser = ?', (user_id,)).fetchall()
+    user = conn.execute('SELECT * FROM user, posts WHERE user.id = ? AND user.id = posts.byUser', (user_id,)).fetchone()
+    conn.close()
+    return render_template('my-guides.html', user=user, posts=posts)
+
+
+@app.route('/profile/', methods=('GET', 'POST'))
 def profile():
     global user_id
+    if request.form.get('redirect') == '1':
+        return redirect(url_for('guides'))
     conn = get_db_connection()
     user = conn.execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
     conn.close()
@@ -83,7 +96,7 @@ def create():
                          (user_id, title, content))
             conn.commit()
             conn.close()
-            return redirect(url_for('index'))
+            return redirect(url_for('guides'))
 
     return render_template('create.html')
 

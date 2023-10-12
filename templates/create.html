@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Add a New Post {% endblock %}</h1>
-<form method="post">
-    <label for="title">Title</label>
-    <br>
-    <label>
-        <input type="text" name="title" value="{{ request.form['title'] }}" />
-    </label>
-    <br>
-    <label for="content">Post Content</label>
-    <br>
-    <label>
+    <h1>{% block title %} Add a New Post {% endblock %}</h1>
+    <form method="post">
+        <label for="title">Title</label>
+        <br>
+        <label>
+            <input type="text" name="title" value="{{ request.form['title'] }}"/>
+        </label>
+        <br>
+        <label for="content">Post Content</label>
+        <br>
+        <label>
         <textarea name="content" placeholder="Post content" rows="15" cols="60">
             {{ request.form['content'] }}
         </textarea>
-    </label>
-    <br>
-    <button type="submit">Submit</button>
-</form>
+        </label>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
 {% endblock %}
