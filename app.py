@@ -126,8 +126,8 @@ def edit(id):
 @app.route('/<int:id>/view/', methods=('GET', 'POST'))
 def view(id):
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts WHERE id = ?', (id,)).fetchone()
-    user = conn.execute('SELECT * FROM user, posts WHERE posts.id = ? AND posts.id = user.id', (id,)).fetchone()
+    posts = conn.execute('SELECT * FROM posts, user WHERE posts.id = ?', (id,)).fetchone()
+    user = conn.execute('SELECT * FROM user, posts WHERE posts.id = ? AND posts.byUser = user.id', (id,)).fetchone()
     conn.close()
     return render_template('view-guide.html', posts=posts, user=user)
 
