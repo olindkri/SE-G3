@@ -8,7 +8,6 @@
             <p>{{ post['created'] }}</p>
             <h2>{{ post['title'] }}</h2>
             <p>{{ post['content'] }}</p>
-            <!--suppress HtmlUnknownTarget -->
             <a href="{{ url_for('edit', id=post['id']) }}">Edit</a>
         </div>
     {% endfor %}

@@ -97,7 +97,6 @@ def create():
             conn.commit()
             conn.close()
             return redirect(url_for('guides'))
-
     return render_template('create.html')
 
 
@@ -111,10 +110,8 @@ def edit(id):
 
         if not title:
             flash('Title is required!')
-
         elif not content:
             flash('Content is required!')
-
         else:
             conn = get_db_connection()
             conn.execute('UPDATE posts SET title = ?, content = ?'
@@ -123,8 +120,16 @@ def edit(id):
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
-
     return render_template('edit.html', post=post)
+
+
+@app.route('/<int:id>/view/', methods=('GET', 'POST'))
+def view(id):
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM posts WHERE id = ?', (id,)).fetchone()
+    user = conn.execute('SELECT * FROM user, posts WHERE posts.id = ? AND posts.id = user.id', (id,)).fetchone()
+    conn.close()
+    return render_template('view-guide.html', posts=posts, user=user)
 
 
 @app.route('/<int:id>/delete/', methods=('POST',))

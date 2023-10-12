@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class='post'>
+        {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
+        <h2>{{ posts['title'] }}</h2>
+        <p>{{ posts['content'] }}</p>
+    </div>
+{% endblock %}
