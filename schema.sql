@@ -1,19 +1,43 @@
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS chat;
+DROP TABLE IF EXISTS message;
 
-CREATE TABLE posts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    byUser INTEGER,
+CREATE TABLE posts
+(
+    id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    byUser  INTEGER,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    title TEXT NOT NULL,
-    content TEXT NOT NULL,
-    FOREIGN KEY(byUser) REFERENCES user(id)
+    title   TEXT      NOT NULL,
+    content TEXT      NOT NULL,
+    FOREIGN KEY (byUser) REFERENCES user (id)
 );
 
-CREATE TABLE user (
-  id INTEGER PRIMARY KEY AUTOINCREMENT ,
-  firstname TEXT NOT NULL,
-  lastname TEXT NOT NULL,
-  age INTEGER,
-  country TEXT
+CREATE TABLE user
+(
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    firstname TEXT NOT NULL,
+    lastname  TEXT NOT NULL,
+    age       INTEGER,
+    country   TEXT
+);
+
+CREATE TABLE chat
+(
+    id    INTEGER PRIMARY KEY AUTOINCREMENT,
+    user1 INTEGER NOT NULL,
+    user2 INTEGER NOT NULL,
+    FOREIGN KEY (user1) REFERENCES user (id),
+    FOREIGN KEY (user2) REFERENCES user (id)
+);
+
+CREATE TABLE message
+(
+    id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    content TEXT,
+    date    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    inChat  INTEGER   NOT NULL,
+    byUser  INTEGER   NOT NULL,
+    FOREIGN KEY (byUser) REFERENCES user (id),
+    FOREIGN KEY (inChat) REFERENCES chat (id)
 );

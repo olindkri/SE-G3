@@ -16,11 +16,19 @@ cur.execute("INSERT INTO user (firstname, lastname, age, country) VALUES (?, ?, 
             )
 
 cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (1, 'First Post', 'Content for the first post')
+            (1, 'Olivers Post', 'Content for my post')
             )
 
 cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (2, 'Second Post', 'Content for the second post')
+            (2, 'Nontas Post', 'Content for my post')
+            )
+
+cur.execute("INSERT INTO chat (user1, user2) VALUES (?, ?)",
+            (1, 2)
+            )
+
+cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
+            ('Hello Nontagan!', 1, 1)
             )
 
 connection.commit()
