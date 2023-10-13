@@ -51,21 +51,27 @@ def user():
 def index():
     global user_id
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts WHERE NOT byUser = ?', (user_id,)).fetchall()
-    user = conn.execute('SELECT * FROM user, posts WHERE NOT user.id = ? AND user.id = posts.byUser',
-                        (user_id,)).fetchone()
+    posts = conn.execute('SELECT * FROM posts, user WHERE NOT byUser = ? AND user.id = byUser', (user_id,)).fetchall()
     conn.close()
-    return render_template('index.html', user=user, posts=posts)
+    return render_template('index.html', posts=posts)
+
+
+@app.route('/chat/')
+def chat():
+    global user_id
+    conn = get_db_connection()
+    chat = conn.execute('SELECT * FROM chat, user WHERE CASE WHEN ? = user1 THEN user.id = user2 WHEN ? = user2 THEN user.id = user1 END', (user_id, user_id,)).fetchall()
+    conn.close()
+    return render_template('chat.html', chat=chat)
 
 
 @app.route('/my-guides/')
 def guides():
     global user_id
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts WHERE byUser = ?', (user_id,)).fetchall()
-    user = conn.execute('SELECT * FROM user, posts WHERE user.id = ? AND user.id = posts.byUser', (user_id,)).fetchone()
+    posts = conn.execute('SELECT * FROM posts, user WHERE byUser = ? AND user.id = posts.byUser', (user_id,)).fetchall()
     conn.close()
-    return render_template('my-guides.html', user=user, posts=posts)
+    return render_template('my-guides.html', posts=posts)
 
 
 @app.route('/profile/', methods=('GET', 'POST'))
@@ -126,10 +132,9 @@ def edit(id):
 @app.route('/<int:id>/view/', methods=('GET', 'POST'))
 def view(id):
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts, user WHERE posts.id = ?', (id,)).fetchone()
-    user = conn.execute('SELECT * FROM user, posts WHERE posts.id = ? AND posts.byUser = user.id', (id,)).fetchone()
+    posts = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND posts.byUser = user.id', (id,)).fetchone()
     conn.close()
-    return render_template('view-guide.html', posts=posts, user=user)
+    return render_template('view-guide.html', posts=posts)
 
 
 @app.route('/<int:id>/delete/', methods=('POST',))
