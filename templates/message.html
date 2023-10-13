@@ -8,4 +8,10 @@
             <p id="date">{{ message['date'] }}</p>
         </div>
     {% endfor %}
+    <form id="message-form" method="post">
+        <textarea id="messagearea" name="message" placeholder="Type here">
+            {{ request.form['message'] }}
+        </textarea>
+        <button id="send-button" type="submit">SEND</button>
+    </form>
 {% endblock %}

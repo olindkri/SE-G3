@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Choose a user {% endblock %}</h1>
+    <h1 id="title">{% block title %} Choose a user {% endblock %}</h1>
 
     <form method="post" action="/user/">
         <button id="button" type="submit" value="1" name="user1">User 1</button>
-        <br>
         <button id="button" type="submit" value="2" name="user2">User 2</button>
     </form>
 
