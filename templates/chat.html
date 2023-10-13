@@ -5,6 +5,7 @@
     {% for chat in chat %}
         <div class='post'>
             <h2>{{ chat['firstname'] }} {{ chat['lastname'] }}</h2>
+            <a href="{{ url_for('message', id=chat['id']) }}">Message</a>
         </div>
     {% endfor %}
 {% endblock %}

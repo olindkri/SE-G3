@@ -60,7 +60,9 @@ def index():
 def chat():
     global user_id
     conn = get_db_connection()
-    chat = conn.execute('SELECT * FROM chat, user WHERE CASE WHEN ? = user1 THEN user.id = user2 WHEN ? = user2 THEN user.id = user1 END', (user_id, user_id,)).fetchall()
+    chat = conn.execute(
+        'SELECT * FROM chat, user WHERE CASE WHEN ? = user1 THEN user.id = user2 WHEN ? = user2 THEN user.id = user1 END',
+        (user_id, user_id,)).fetchall()
     conn.close()
     return render_template('chat.html', chat=chat)
 
@@ -135,6 +137,14 @@ def view(id):
     posts = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND posts.byUser = user.id', (id,)).fetchone()
     conn.close()
     return render_template('view-guide.html', posts=posts)
+
+
+@app.route('/<int:id>/message/', methods=('GET', 'POST'))
+def message(id):
+    conn = get_db_connection()
+    message = conn.execute('SELECT * FROM message, chat, user WHERE chat.id = ? AND message.inChat = chat.id AND user.id = message.byUser', (id,)).fetchall()
+    conn.close()
+    return render_template('message.html', message=message)
 
 
 @app.route('/<int:id>/delete/', methods=('POST',))

@@ -64,6 +64,26 @@ cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
             )
 
 cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
+            ('Hello Oliver!', 1, 2)
+            )
+
+cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
+            ('Yo, Nontagan!', 4, 4)
+            )
+
+cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
+            ('Hello Sakariya!', 3, 1)
+            )
+
+cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
+            ('Hello Erik!', 2, 1)
+            )
+
+cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
+            ('How are you?', 1, 1)
+            )
+
+cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
             ('Hello Sakariya!', 4, 2)
             )
 
