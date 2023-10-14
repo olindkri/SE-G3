@@ -51,7 +51,7 @@ def user():
 def index():
     global user_id
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts, user WHERE NOT byUser = ? AND user.id = byUser', (user_id,)).fetchall()
+    posts = conn.execute('SELECT * FROM posts, user WHERE NOT byUser = ? AND user.id = byUser ORDER BY posts.id DESC', (user_id,)).fetchall()
     conn.close()
     return render_template('index.html', posts=posts)
 
@@ -71,7 +71,7 @@ def chat():
 def guides():
     global user_id
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts, user WHERE byUser = ? AND user.id = posts.byUser', (user_id,)).fetchall()
+    posts = conn.execute('SELECT * FROM posts, user WHERE byUser = ? AND user.id = posts.byUser ORDER BY posts.id DESC', (user_id,)).fetchall()
     conn.close()
     return render_template('my-guides.html', posts=posts)
 
@@ -143,7 +143,7 @@ def view(id):
 def message(id):
     global user_id
     conn = get_db_connection()
-    message = conn.execute('SELECT * FROM message, chat, user WHERE chat.id = ? AND message.inChat = chat.id AND user.id = message.byUser', (id,)).fetchall()
+    message = conn.execute('SELECT * FROM message, chat, user WHERE chat.id = ? AND message.inChat = chat.id AND user.id = message.byUser ORDER BY message.id DESC', (id,)).fetchall()
     if request.method == 'POST':
         message = request.form['message']
 

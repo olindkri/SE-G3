@@ -15,15 +15,16 @@
 
         body {
             margin: 0;
+            padding-bottom: 7rem;
         }
 
         nav {
-            background-color: #f3f3f3;
+            background-color: #729a9d;
             padding: 2vw;
         }
 
         nav a {
-            color: #d64161;
+            color: #ffffff;
             font-size: 2.5em;
             margin-right: 30px;
             text-decoration: none;
@@ -80,15 +81,17 @@
             margin-top: 2vw;
             padding: 10px;
             height: 60px;
-            border-radius: 5px;
+            border-radius: 10px;
             outline: none;
-            border: none;
-            background-color: #8fd38f;
+            color: #ffffff;
+            background-color: #71ad71;
+            border: 2px solid black;
             transition: 300ms;
         }
 
         #send-button:hover {
             background-color: #c6e7c6;
+            color: #484848;
             transform: scale(1.05);
             transition: 300ms;
         }
@@ -139,6 +142,7 @@
             border-radius: 10px;
             background-color: #f8f8f8;
             font-size: 16px;
+
         }
 
         #date {
@@ -148,8 +152,11 @@
 
         #message-form {
             display: flex;
+            background-color: #729a9d;
             vertical-align: center;
-            justify-content: space-between;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
         }
 
     </style>
