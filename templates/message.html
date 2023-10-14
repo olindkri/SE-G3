@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for message in message %}
+        <div class='post'>
+            <h3>{{ message['firstname'] }}</h3>
+            <p>{{ message['content'] }}</p>
+            <p id="date">{{ message['date'] }}</p>
+        </div>
+    {% endfor %}
+    <form id="message-form" method="post">
+        <textarea id="messagearea" name="message" placeholder="Type here">
+            {{ request.form['message'] }}
+        </textarea>
+        <button id="send-button" type="submit">SEND</button>
+    </form>
+{% endblock %}

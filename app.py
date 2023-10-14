@@ -51,15 +51,36 @@ def user():
 def index():
     global user_id
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts WHERE NOT byUser = ?', (user_id,)).fetchall()
-    user = conn.execute('SELECT * FROM user, posts WHERE NOT user.id = ? AND user.id = posts.byUser', (user_id,)).fetchone()
+    posts = conn.execute('SELECT * FROM posts, user WHERE NOT byUser = ? AND user.id = byUser', (user_id,)).fetchall()
     conn.close()
-    return render_template('index.html', user=user, posts=posts)
+    return render_template('index.html', posts=posts)
 
 
-@app.route('/profile/')
+@app.route('/chat/')
+def chat():
+    global user_id
+    conn = get_db_connection()
+    chat = conn.execute(
+        'SELECT * FROM chat, user WHERE CASE WHEN ? = user1 THEN user.id = user2 WHEN ? = user2 THEN user.id = user1 END',
+        (user_id, user_id,)).fetchall()
+    conn.close()
+    return render_template('chat.html', chat=chat)
+
+
+@app.route('/my-guides/')
+def guides():
+    global user_id
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM posts, user WHERE byUser = ? AND user.id = posts.byUser', (user_id,)).fetchall()
+    conn.close()
+    return render_template('my-guides.html', posts=posts)
+
+
+@app.route('/profile/', methods=('GET', 'POST'))
 def profile():
     global user_id
+    if request.form.get('redirect') == '1':
+        return redirect(url_for('guides'))
     conn = get_db_connection()
     user = conn.execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
     conn.close()
@@ -83,8 +104,7 @@ def create():
                          (user_id, title, content))
             conn.commit()
             conn.close()
-            return redirect(url_for('index'))
-
+            return redirect(url_for('guides'))
     return render_template('create.html')
 
 
@@ -98,10 +118,8 @@ def edit(id):
 
         if not title:
             flash('Title is required!')
-
         elif not content:
             flash('Content is required!')
-
         else:
             conn = get_db_connection()
             conn.execute('UPDATE posts SET title = ?, content = ?'
@@ -110,8 +128,35 @@ def edit(id):
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
-
     return render_template('edit.html', post=post)
+
+
+@app.route('/<int:id>/view/', methods=('GET', 'POST'))
+def view(id):
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND posts.byUser = user.id', (id,)).fetchone()
+    conn.close()
+    return render_template('view-guide.html', posts=posts)
+
+
+@app.route('/<int:id>/message/', methods=('GET', 'POST'))
+def message(id):
+    global user_id
+    conn = get_db_connection()
+    message = conn.execute('SELECT * FROM message, chat, user WHERE chat.id = ? AND message.inChat = chat.id AND user.id = message.byUser', (id,)).fetchall()
+    if request.method == 'POST':
+        message = request.form['message']
+
+        if not message:
+            flash('You need to write something.')
+        else:
+            conn.execute('INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)',
+                         (message, id, user_id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('message', id=id))
+
+    return render_template('message.html', message=message)
 
 
 @app.route('/<int:id>/delete/', methods=('POST',))

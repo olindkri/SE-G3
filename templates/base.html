@@ -8,14 +8,24 @@
 
         .post {
             padding: 10px;
-            margin: 5px;
-            background-color: #f3f3f3
+            margin: 2vw;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        nav {
+            background-color: #f3f3f3;
+            padding: 2vw;
         }
 
         nav a {
             color: #d64161;
             font-size: 2.5em;
-            margin-left: 50px;
+            margin-right: 30px;
             text-decoration: none;
             font-family: 'Onest', sans-serif;
         }
@@ -31,6 +41,10 @@
             font-family: 'Lexend', sans-serif;
         }
 
+        #title {
+            margin: 2vw;
+        }
+
         p {
             font-family: 'Montserrat', sans-serif;
         }
@@ -43,14 +57,46 @@
         #button {
             font-family: 'Rubik', sans-serif;
             font-size: 1.2em;
-            margin: 5px;
+            margin: 2vw;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #8fd38f;
+            outline: none;
+            border: none;
+            transition: 300ms;
+        }
+
+        #button:hover {
+            background-color: #c6e7c6;
+            transform: scale(1.05);
+            transition: 300ms;
+        }
+
+
+        #send-button {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.2em;
+            margin-right: 2vw;
+            margin-top: 2vw;
+            padding: 10px;
+            height: 60px;
             border-radius: 5px;
             outline: none;
             border: none;
+            background-color: #8fd38f;
+            transition: 300ms;
+        }
+
+        #send-button:hover {
+            background-color: #c6e7c6;
+            transform: scale(1.05);
+            transition: 300ms;
         }
 
         label {
             font-family: 'Lexend', sans-serif;
+            width: 100%;
+            margin: 2vw;
         }
 
         input {
@@ -58,6 +104,7 @@
             width: 15em;
             height: 2.5em;
             padding-left: 0.8em;
+            margin: 2vw;
             font-size: 16px;
             font-family: 'Montserrat', sans-serif;
             outline: none;
@@ -68,26 +115,53 @@
         }
 
         textarea {
-            height: 150px;
+            height: 60px;
+            margin: 2vw;
             padding: 12px 0.8em;
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
+            resize: none;
             border: 2px solid #ccc;
             border-radius: 10px;
             background-color: #f8f8f8;
             font-size: 16px;
         }
 
+        #messagearea {
+            height: 60px;
+            width: 100%;
+            margin-top: 2vw;
+            padding: 12px 0.8em;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            resize: none;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f8f8f8;
+            font-size: 16px;
+        }
+
+        #date {
+            color: grey;
+            font-size: 0.9rem;
+        }
+
+        #message-form {
+            display: flex;
+            vertical-align: center;
+            justify-content: space-between;
+        }
+
     </style>
 </head>
 <body>
 <nav>
-    <a href="{{ url_for('index') }}">Guide</a>
-    <a href="{{ url_for('create') }}">Create Post</a>
-    <a href="{{ url_for('user') }}">Choose User</a>
-    <a href="{{ url_for('profile') }}">Profile</a>
+    <a href="{{ url_for('index') }}">GUIDES</a>
+    <a href="{{ url_for('create') }}">CREATE</a>
+    <a href="{{ url_for('chat') }}">CHATS</a>
+    <a href="{{ url_for('user') }}">USER</a>
+    <a href="{{ url_for('profile') }}">PROFILE</a>
 </nav>
-<hr>
 <div class="content">
     {% for message in get_flashed_messages() %}
         <div class="alert">{{ message }}</div>
