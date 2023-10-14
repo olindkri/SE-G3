@@ -24,19 +24,19 @@ cur.execute("INSERT INTO user (firstname, lastname, age, country) VALUES (?, ?, 
             )
 
 cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (1, 'Olivers Post', 'Content for my post.')
+            (1, 'Olivers Post', 'Hi, is this working?.')
             )
 
 cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (2, 'Nontas Post', 'Content for my post.')
+            (2, 'Nontas Post', 'This is so cool!')
             )
 
 cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (3, 'Eriks Post', 'Content for my post.')
+            (3, 'Eriks Post', 'My first post...')
             )
 
 cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (4, 'Sakariyas Post', 'Content for my post.')
+            (4, 'Sakariyas Post', 'I love guides!')
             )
 
 cur.execute("INSERT INTO chat (user1, user2) VALUES (?, ?)",
