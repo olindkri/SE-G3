@@ -141,9 +141,21 @@ def view(id):
 
 @app.route('/<int:id>/message/', methods=('GET', 'POST'))
 def message(id):
+    global user_id
     conn = get_db_connection()
     message = conn.execute('SELECT * FROM message, chat, user WHERE chat.id = ? AND message.inChat = chat.id AND user.id = message.byUser', (id,)).fetchall()
-    conn.close()
+    if request.method == 'POST':
+        message = request.form['message']
+
+        if not message:
+            flash('You need to write something.')
+        else:
+            conn.execute('INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)',
+                         (message, id, user_id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('message', id=id))
+
     return render_template('message.html', message=message)
 
 
