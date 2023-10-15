@@ -51,7 +51,8 @@ def user():
 def index():
     global user_id
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts, user WHERE NOT byUser = ? AND user.id = byUser ORDER BY posts.id DESC', (user_id,)).fetchall()
+    posts = conn.execute('SELECT * FROM posts, user WHERE NOT byUser = ? AND user.id = byUser ORDER BY posts.id DESC',
+                         (user_id,)).fetchall()
     conn.close()
     return render_template('index.html', posts=posts)
 
@@ -71,7 +72,8 @@ def chat():
 def guides():
     global user_id
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts, user WHERE byUser = ? AND user.id = posts.byUser ORDER BY posts.id DESC', (user_id,)).fetchall()
+    posts = conn.execute('SELECT * FROM posts, user WHERE byUser = ? AND user.id = posts.byUser ORDER BY posts.id DESC',
+                         (user_id,)).fetchall()
     conn.close()
     return render_template('my-guides.html', posts=posts)
 
@@ -81,10 +83,15 @@ def profile():
     global user_id
     if request.form.get('redirect') == '1':
         return redirect(url_for('guides'))
+    elif request.form.get('redirect') == '2':
+        return redirect(url_for('create'))
     conn = get_db_connection()
     user = conn.execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
+    guide = conn.execute(
+        'SELECT * FROM guide_user, posts, user WHERE guide_user.user = ? AND posts.byUser = guide_user.guide AND user.id = guide_user.guide',
+        (user_id,)).fetchall()
     conn.close()
-    return render_template('profile.html', user=user)
+    return render_template('profile.html', user=user, guide=guide)
 
 
 @app.route('/create/', methods=('GET', 'POST'))
@@ -127,7 +134,7 @@ def edit(id):
                          (title, content, id))
             conn.commit()
             conn.close()
-            return redirect(url_for('index'))
+            return redirect(url_for('guides'))
     return render_template('edit.html', post=post)
 
 
@@ -143,7 +150,9 @@ def view(id):
 def message(id):
     global user_id
     conn = get_db_connection()
-    message = conn.execute('SELECT * FROM message, chat, user WHERE chat.id = ? AND message.inChat = chat.id AND user.id = message.byUser ORDER BY message.id DESC', (id,)).fetchall()
+    message = conn.execute(
+        'SELECT * FROM message, chat, user WHERE chat.id = ? AND message.inChat = chat.id AND user.id = message.byUser ORDER BY message.id DESC',
+        (id,)).fetchall()
     if request.method == 'POST':
         message = request.form['message']
 
