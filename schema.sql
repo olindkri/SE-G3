@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS chat;
 DROP TABLE IF EXISTS message;
+DROP TABLE IF EXISTS guide_user;
 
 CREATE TABLE posts
 (
@@ -40,4 +41,15 @@ CREATE TABLE message
     byUser  INTEGER   NOT NULL,
     FOREIGN KEY (byUser) REFERENCES user (id),
     FOREIGN KEY (inChat) REFERENCES chat (id)
+);
+
+CREATE TABLE guide_user
+(
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    user      INTEGER NOT NULL,
+    guide     INTEGER NOT NULL,
+    from_date DATE    NOT NULL,
+    to_date   DATE    NOT NULL,
+    FOREIGN KEY (user) REFERENCES user (id),
+    FOREIGN KEY (guide) REFERENCES posts (id)
 );

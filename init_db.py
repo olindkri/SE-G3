@@ -87,5 +87,13 @@ cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
             ('Hello Sakariya!', 4, 2)
             )
 
+cur.execute("INSERT INTO guide_user (user, guide, from_date, to_date) VALUES (?, ?, ?, ?)",
+            (1, 4, "2023-10-15", "2023-10-20")
+            )
+
+cur.execute("INSERT INTO guide_user (user, guide, from_date, to_date) VALUES (?, ?, ?, ?)",
+            (2, 3, "2023-11-04", "2023-11-14")
+            )
+
 connection.commit()
 connection.close()
