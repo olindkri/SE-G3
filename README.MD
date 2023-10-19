@@ -5,7 +5,7 @@
 - Nontagan Phomin
 - Erik Evjen
 - Sakariya Adan Mahamud
-- Steffen
+- Stephen
 
 ## Prototype
 
