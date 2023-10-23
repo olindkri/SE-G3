@@ -23,20 +23,12 @@ cur.execute("INSERT INTO user (firstname, lastname, age, country) VALUES (?, ?, 
             ('Sakariya', 'Mahamud', 24, 'Norway')
             )
 
-cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (1, 'Olivers Post', 'Hi, is this working?.')
+cur.execute("INSERT INTO posts (byUser, title, content, country, city, language, price) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (1, 'Olivers guide', 'Hi, is this working?.', 'Norway', 'Halden', 'Norsk', 320)
             )
 
-cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (2, 'Nontas Post', 'This is so cool!')
-            )
-
-cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (3, 'Eriks Post', 'My first post...')
-            )
-
-cur.execute("INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)",
-            (4, 'Sakariyas Post', 'I love guides!')
+cur.execute("INSERT INTO posts (byUser, title, content, country, city, language, price) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (2, 'Nontagans guide', 'Hi, do you want a tour?.', 'Thailand', 'Bangkok', 'Thai', 425)
             )
 
 cur.execute("INSERT INTO chat (user1, user2) VALUES (?, ?)",
@@ -88,11 +80,11 @@ cur.execute("INSERT INTO message (content, inChat, byUser) VALUES (?, ?, ?)",
             )
 
 cur.execute("INSERT INTO guide_user (user, guide, from_date, to_date) VALUES (?, ?, ?, ?)",
-            (1, 4, "2023-10-15", "2023-10-20")
+            (1, 2, "2023-10-15", "2023-10-20")
             )
 
 cur.execute("INSERT INTO guide_user (user, guide, from_date, to_date) VALUES (?, ?, ?, ?)",
-            (2, 3, "2023-11-04", "2023-11-14")
+            (2, 1, "2023-11-04", "2023-11-14")
             )
 
 connection.commit()

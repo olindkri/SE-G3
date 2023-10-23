@@ -6,11 +6,15 @@ DROP TABLE IF EXISTS guide_user;
 
 CREATE TABLE posts
 (
-    id      INTEGER PRIMARY KEY AUTOINCREMENT,
-    byUser  INTEGER,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    title   TEXT      NOT NULL,
-    content TEXT      NOT NULL,
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    byUser   INTEGER,
+    created  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    title    TEXT      NOT NULL,
+    content  TEXT      NOT NULL,
+    country  TEXT      NOT NULL,
+    city     TEXT      NOT NULL,
+    language TEXT,
+    price    INTEGER   NOT NULL,
     FOREIGN KEY (byUser) REFERENCES user (id)
 );
 

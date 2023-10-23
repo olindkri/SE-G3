@@ -122,6 +122,9 @@ def edit(id):
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
+        country = request.form['country']
+        city = request.form['city']
+        language = request.form['language']
 
         if not title:
             flash('Title is required!')
@@ -129,9 +132,9 @@ def edit(id):
             flash('Content is required!')
         else:
             conn = get_db_connection()
-            conn.execute('UPDATE posts SET title = ?, content = ?'
+            conn.execute('UPDATE posts SET title = ?, content = ?, country = ?, city = ?, language = ?'
                          ' WHERE id = ?',
-                         (title, content, id))
+                         (title, content, country, city, language, id))
             conn.commit()
             conn.close()
             return redirect(url_for('guides'))
@@ -144,6 +147,14 @@ def view(id):
     posts = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND posts.byUser = user.id', (id,)).fetchone()
     conn.close()
     return render_template('view-guide.html', posts=posts)
+
+
+@app.route('/<int:id>/profile/', methods=('GET', 'POST'))
+def viewProfile(id):
+    conn = get_db_connection()
+    user = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser', (id,)).fetchone()
+    conn.close()
+    return render_template('view-profile.html', user=user)
 
 
 @app.route('/<int:id>/message/', methods=('GET', 'POST'))

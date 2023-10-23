@@ -10,13 +10,31 @@
                value="{{ request.form['title'] or post['title'] }}"></input>
         <br>
 
-        <label for="content">Content</label>
+        <label for="content">Description</label>
         <br>
         <textarea name="content"
-                  placeholder="Post content"
+                  placeholder="Descriptionontent"
                   rows="15"
                   cols="60"
         >{{ request.form['content'] or post['content'] }}</textarea>
+        <br>
+        <label for="country">Country</label>
+        <br>
+        <input type="text" name="country"
+               placeholder="Country"
+               value="{{ request.form['country'] or post['country'] }}"></input>
+        <br>
+        <label for="city">City</label>
+        <br>
+        <input type="text" name="city"
+               placeholder="City"
+               value="{{ request.form['city'] or post['city'] }}"></input>
+        <br>
+        <label for="title">Language</label>
+        <br>
+        <input type="text" name="language"
+               placeholder="Language"
+               value="{{ request.form['language'] or post['language'] }}"></input>
         <br>
         <button id="button" type="submit">Submit</button>
     </form>
