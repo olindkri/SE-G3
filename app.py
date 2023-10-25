@@ -100,6 +100,10 @@ def create():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
+        country = request.form['country']
+        city = request.form['city']
+        language = request.form['language']
+        price = request.form['price']
 
         if not title:
             flash('Title is required!')
@@ -107,8 +111,8 @@ def create():
             flash('Content is required!')
         else:
             conn = get_db_connection()
-            conn.execute('INSERT INTO posts (byUser, title, content) VALUES (?, ?, ?)',
-                         (user_id, title, content))
+            conn.execute('INSERT INTO posts (byUser, title, content, country, city, language, price) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                         (user_id, title, content, country, city, language, price))
             conn.commit()
             conn.close()
             return redirect(url_for('guides'))
@@ -125,6 +129,7 @@ def edit(id):
         country = request.form['country']
         city = request.form['city']
         language = request.form['language']
+        price = request.form['price']
 
         if not title:
             flash('Title is required!')
@@ -132,9 +137,9 @@ def edit(id):
             flash('Content is required!')
         else:
             conn = get_db_connection()
-            conn.execute('UPDATE posts SET title = ?, content = ?, country = ?, city = ?, language = ?'
+            conn.execute('UPDATE posts SET title = ?, content = ?, country = ?, city = ?, language = ?, price = ?'
                          ' WHERE id = ?',
-                         (title, content, country, city, language, id))
+                         (title, content, country, city, language, price, id))
             conn.commit()
             conn.close()
             return redirect(url_for('guides'))

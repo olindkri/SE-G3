@@ -13,7 +13,7 @@
         <label for="content">Description</label>
         <br>
         <textarea name="content"
-                  placeholder="Descriptionontent"
+                  placeholder="Description"
                   rows="15"
                   cols="60"
         >{{ request.form['content'] or post['content'] }}</textarea>
@@ -35,6 +35,12 @@
         <input type="text" name="language"
                placeholder="Language"
                value="{{ request.form['language'] or post['language'] }}"></input>
+        <br>
+        <label for="title">Price</label>
+        <br>
+        <input type="text" name="price"
+               placeholder="Price per hour"
+               value="{{ request.form['price'] or post['price'] }}"></input>
         <br>
         <button id="button" type="submit">Submit</button>
     </form>
