@@ -24,11 +24,11 @@ cur.execute("INSERT INTO user (firstname, lastname, age, country) VALUES (?, ?, 
             )
 
 cur.execute("INSERT INTO posts (byUser, title, content, country, city, language, price) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (1, 'Olivers guide', 'Hi, is this working?.', 'Norway', 'Halden', 'Norsk', 320)
+            (1, 'Olivers guide', 'Hi, is this working?', 'Norway', 'Halden', 'Norsk', 320)
             )
 
 cur.execute("INSERT INTO posts (byUser, title, content, country, city, language, price) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (2, 'Nontagans guide', 'Hi, do you want a tour?.', 'Thailand', 'Bangkok', 'Thai', 425)
+            (2, 'Nontagans guide', 'Hi, do you want a tour?', 'Thailand', 'Bangkok', 'Thai', 425)
             )
 
 cur.execute("INSERT INTO chat (user1, user2) VALUES (?, ?)",

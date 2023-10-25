@@ -88,7 +88,7 @@ def profile():
     conn = get_db_connection()
     user = conn.execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
     guide = conn.execute(
-        'SELECT * FROM guide_user, posts, user WHERE guide_user.user = ? AND posts.byUser = guide_user.guide AND user.id = guide_user.guide',
+        'SELECT * FROM guide_user, posts, user WHERE guide_user.user = ? AND posts.id = guide_user.guide AND user.id = posts.byUser',
         (user_id,)).fetchall()
     conn.close()
     return render_template('profile.html', user=user, guide=guide)
@@ -111,12 +111,36 @@ def create():
             flash('Content is required!')
         else:
             conn = get_db_connection()
-            conn.execute('INSERT INTO posts (byUser, title, content, country, city, language, price) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                         (user_id, title, content, country, city, language, price))
+            conn.execute(
+                'INSERT INTO posts (byUser, title, content, country, city, language, price) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                (user_id, title, content, country, city, language, price))
             conn.commit()
             conn.close()
             return redirect(url_for('guides'))
     return render_template('create.html')
+
+
+@app.route('/<int:id>/rent/', methods=('GET', 'POST'))
+def rent(id):
+    global user_id
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND posts.byUser = user.id', (id,)).fetchone()
+    if request.method == 'POST':
+        date_from = request.form['from']
+        date_to = request.form['to']
+
+        if not date_from:
+            flash('From date is required!')
+        elif not date_to:
+            flash('To date is required!')
+        else:
+            conn = get_db_connection()
+            conn.execute('INSERT INTO guide_user (guide, user, from_date, to_date) VALUES (?, ?, ?, ?)',
+                         (id, user_id, date_from, date_to))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('profile'))
+    return render_template('rent-guide.html', posts=posts)
 
 
 @app.route('/<int:id>/edit/', methods=('GET', 'POST'))
