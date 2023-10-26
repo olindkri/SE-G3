@@ -5,7 +5,7 @@
         {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
         <h3>
             <a id="profile"
-               href="{{ url_for('viewProfile', id=posts['id']) }}">{{ posts['firstname'] }} {{ posts['lastname'] }}</a>
+               href="{{ url_for('viewProfile', id=posts['id'], u=posts['byUser']) }}">{{ posts['firstname'] }} {{ posts['lastname'] }}</a>
         </h3>
         <h2>{{ posts['title'] }}</h2>
         <p id="textbox">{{ posts['content'] }}</p>
@@ -17,11 +17,12 @@
         </h2>
     </div>
     <form method="post">
-        <label for="from">From</label>
+        <label for="from"></label>
         <input type="date" name="from"
                placeholder="From"
                value="{{ request.form['from'] }}">
-        <label for="to">To</label>
+        <br>
+        <label for="to"></label>
         <input type="date" name="to"
                placeholder="To"
                value="{{ request.form['to'] }}">

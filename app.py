@@ -120,6 +120,20 @@ def create():
     return render_template('create.html')
 
 
+@app.route('/<int:id>/<int:u>/profile/', methods=('GET', 'POST'))
+def viewProfile(id, u):
+    conn = get_db_connection()
+    global user_id
+    user = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser', (id,)).fetchone()
+    if request.method == 'POST':
+        conn.execute('INSERT INTO chat (user1, user2) VALUES (?, ?)',
+                     (user_id, u))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('chat'))
+    return render_template('view-profile.html', user=user)
+
+
 @app.route('/<int:id>/rent/', methods=('GET', 'POST'))
 def rent(id):
     global user_id
@@ -176,14 +190,6 @@ def view(id):
     posts = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND posts.byUser = user.id', (id,)).fetchone()
     conn.close()
     return render_template('view-guide.html', posts=posts)
-
-
-@app.route('/<int:id>/profile/', methods=('GET', 'POST'))
-def viewProfile(id):
-    conn = get_db_connection()
-    user = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser', (id,)).fetchone()
-    conn.close()
-    return render_template('view-profile.html', user=user)
 
 
 @app.route('/<int:id>/message/', methods=('GET', 'POST'))

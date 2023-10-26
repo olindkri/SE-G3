@@ -5,7 +5,7 @@
         {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
         <h3>
             <a id="profile"
-               href="{{ url_for('viewProfile', id=posts['id']) }}">{{ posts['firstname'] }} {{ posts['lastname'] }}</a>
+               href="{{ url_for('viewProfile', id=posts['id'], u=posts['byUser']) }}">{{ posts['firstname'] }} {{ posts['lastname'] }}</a>
         </h3>
         <h2>{{ posts['title'] }}</h2>
         <p id="date">{{ posts['created'] }}</p>
