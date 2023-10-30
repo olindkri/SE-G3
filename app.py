@@ -78,6 +78,17 @@ def guides():
     return render_template('my-guides.html', posts=posts)
 
 
+@app.route('/planned/')
+def planned():
+    global user_id
+    conn = get_db_connection()
+    posts = conn.execute(
+        'SELECT * FROM guide_user, user, posts WHERE posts.id = guide_user.guide AND posts.byUser = ? AND user.id = guide_user.user',
+        (user_id,)).fetchall()
+    conn.close()
+    return render_template('planned-guides.html', posts=posts)
+
+
 @app.route('/profile/', methods=('GET', 'POST'))
 def profile():
     global user_id
@@ -124,7 +135,7 @@ def create():
 def viewProfile(id, u):
     conn = get_db_connection()
     global user_id
-    user = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser', (id,)).fetchone()
+    user = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser OR user.id = ?', (id, u,)).fetchone()
     if request.method == 'POST':
         conn.execute('INSERT INTO chat (user1, user2) VALUES (?, ?)',
                      (user_id, u))

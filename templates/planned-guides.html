@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 id="title">{% block title %} Planned guides {% endblock %}</h1>
+    {% for post in posts %}
+        <div class='post'>
+            <h3 id="date">{{ post['from_date'] }} - {{ post['to_date'] }}</h3>
+            <h2>
+                <a id="profile"
+                   href="{{ url_for('viewProfile', id=post['user'], u=post['user']) }}">{{ post['firstname'] }} {{ post['lastname'] }}
+                </a>
+            </h2>
+            <h3>Age: {{ post['age'] }}</h3>
+            <h3>From: {{ post['country'] }} </h3>
+            <div id="textsec">
+                <h3>{{ post['city'] }}, {{ post['country'] }}</h3>
+                <h2>{{ post['price'] }}kr /hour.</h2>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
