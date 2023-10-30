@@ -2,51 +2,62 @@
 
 {% block content %}
     <h1 id="title">{% block title %} Edit "{{ post['title'] }}" {% endblock %}</h1>
-    <form method="post">
-        <label for="title">Title</label>
-        <br>
-        <input type="text" name="title"
-               placeholder="Post title"
-               value="{{ request.form['title'] or post['title'] }}"></input>
-        <br>
+    <div class="post">
+        <form method="post">
+            <label for="title">
+                <br>
+                <input type="text" name="title"
+                       placeholder="Post title"
+                       value="{{ request.form['title'] or post['title'] }}">
+            </label>
+            <br>
 
-        <label for="content">Description</label>
-        <br>
-        <textarea name="content"
-                  placeholder="Description"
-                  rows="15"
-                  cols="60"
-        >{{ request.form['content'] or post['content'] }}</textarea>
-        <br>
-        <label for="country">Country</label>
-        <br>
-        <input type="text" name="country"
-               placeholder="Country"
-               value="{{ request.form['country'] or post['country'] }}"></input>
-        <br>
-        <label for="city">City</label>
-        <br>
-        <input type="text" name="city"
-               placeholder="City"
-               value="{{ request.form['city'] or post['city'] }}"></input>
-        <br>
-        <label for="title">Language</label>
-        <br>
-        <input type="text" name="language"
-               placeholder="Language"
-               value="{{ request.form['language'] or post['language'] }}"></input>
-        <br>
-        <label for="title">Price</label>
-        <br>
-        <input type="text" name="price"
-               placeholder="Price per hour"
-               value="{{ request.form['price'] or post['price'] }}"></input>
-        <br>
-        <button id="button" type="submit">Submit</button>
-    </form>
-    <form action="{{ url_for('delete', id=post['id']) }}" method="POST">
-        <button id="button" type="submit" value="Delete Post"
-                onclick="return confirm('Are you sure you want to delete this post?')">Delete
-        </button>
-    </form>
+            <label for="content">
+                <br>
+                <textarea name="content"
+                          placeholder="Description"
+                          rows="15"
+                          cols="60"
+                >{{ request.form['content'] or post['content'] }}</textarea>
+            </label>
+            <br>
+            <label for="country">
+                <br>
+                <input type="text" name="country"
+                       placeholder="Country"
+                       value="{{ request.form['country'] or post['country'] }}">
+            </label>
+            <br>
+            <label for="city">
+                <br>
+                <input type="text" name="city"
+                       placeholder="City"
+                       value="{{ request.form['city'] or post['city'] }}">
+            </label>
+            <br>
+            <label for="language">
+                <br>
+                <input type="text" name="language"
+                       placeholder="Language"
+                       value="{{ request.form['language'] or post['language'] }}">
+            </label>
+            <br>
+            <label for="price">
+                <br>
+                <input type="text" name="price"
+                       placeholder="Price per hour"
+                       value="{{ request.form['price'] or post['price'] }}">
+            </label>
+            <br>
+            <br>
+            <button id="button" type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="post">
+        <form action="{{ url_for('delete', id=post['id']) }}" method="POST">
+            <button id="button" type="submit" value="Delete Post"
+                    onclick="return confirm('Are you sure you want to delete this post?')">Delete
+            </button>
+        </form>
+    </div>
 {% endblock %}
