@@ -8,15 +8,25 @@
                href="{{ url_for('viewProfile', id=posts['id'], u=posts['byUser']) }}">{{ posts['firstname'] }} {{ posts['lastname'] }}</a>
         </h3>
         <h2>{{ posts['title'] }}</h2>
-        <p id="date">{{ posts['created'] }}</p>
         <p id="textbox">{{ posts['content'] }}</p>
         <p>{{ posts['country'] }}</p>
         <p>{{ posts['city'] }}</p>
-        <p>{{ posts['language'] }}</p>
-        <br>
-        <h3>
-            <a href="{{ url_for('rent', id=posts['id']) }}">Rent guide</a> {{ posts['price'] }}kr /hour.
-        </h3>
-
+        <h3>{{ posts['language'] }}</h3>
+        <h2>
+            {{ posts['price'] }}kr /hour.
+        </h2>
     </div>
+    <form method="post">
+        <label for="from"></label>
+        <input type="date" name="from"
+               placeholder="From"
+               value="{{ request.form['from'] }}">
+        <br>
+        <label for="to"></label>
+        <input type="date" name="to"
+               placeholder="To"
+               value="{{ request.form['to'] }}">
+        <br>
+        <button id="button" type="submit">Rent guide</button>
+    </form>
 {% endblock %}

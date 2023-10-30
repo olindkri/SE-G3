@@ -4,10 +4,15 @@
     <h1 id="title">{% block title %} All guides {% endblock %}</h1>
     {% for post in posts %}
         <div class='post'>
-            <h3>{{ post['firstname'] }}</h3>
+            <h3>
+                <a id="profile"
+               href="{{ url_for('viewProfile', id=post['id'], u=post['byUser']) }}">{{ post['firstname'] }} {{ post['lastname'] }}</a>
+            </h3>
             <p id="date">{{ post['created'] }}</p>
             <h2>{{ post['title'] }}</h2>
             <p>{{ post['content'] }}</p>
+            <br>
+            <p>{{ post['country'] }}</p>
             <a href="{{ url_for('view', id=post['id']) }}">View</a>
         </div>
     {% endfor %}

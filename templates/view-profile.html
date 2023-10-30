@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class='post'>
+        {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
+        <h1>{{ user['firstname'] }} {{ user['lastname'] }}</h1>
+        <h3>{{ user['age'] }}</h3>
+        <h3>{{ user['country'] }}</h3>
+    </div>
+    <form method="post">
+        <button id="button" type="submit">Message {{ user['firstname'] }}</button>
+    </form>
+{% endblock %}
