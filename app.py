@@ -62,7 +62,7 @@ def chat():
     global user_id
     conn = get_db_connection()
     chat = conn.execute(
-        'SELECT * FROM chat, user WHERE CASE WHEN ? = user1 THEN user.id = user2 WHEN ? = user2 THEN user.id = user1 END',
+        'SELECT * FROM chat, user WHERE CASE WHEN ? = user1 THEN user.id = user2 WHEN ? = user2 THEN user.id = user1 END ORDER BY chat.id DESC',
         (user_id, user_id,)).fetchall()
     conn.close()
     return render_template('chat.html', chat=chat)
@@ -222,4 +222,4 @@ def delete(id):
     conn.commit()
     conn.close()
     flash('"{}" was successfully deleted!'.format(post['title']))
-    return redirect(url_for('index'))
+    return redirect(url_for('guides'))
