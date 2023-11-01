@@ -9,9 +9,10 @@
         </h3>
         <h2>{{ posts['title'] }}</h2>
         <p id="date">{{ posts['created'] }}</p>
-        <p id="textbox">{{ posts['content'] }}</p>
-        <p>{{ posts['country'] }}</p>
-        <p>{{ posts['city'] }}</p>
+        <div id="textsec">
+            <p>{{ posts['content'] }}</p>
+        </div>
+        <h3>{{ posts['city'] }}, {{ posts['country'] }}</h3>
         <p>{{ posts['language'] }}</p>
         <br>
         <h3>

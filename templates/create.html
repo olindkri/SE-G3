@@ -1,47 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 id="title">{% block title %} Create your own guide {% endblock %}</h1>
-    <form method="post">
-        <label for="title">Title</label>
-        <br>
-        <input type="text" name="title"
-               placeholder="Post title"
-               value="{{ request.form['title'] }}"></input>
-        <br>
+    <div class="post">
+        <form method="post">
+            <label for="title">
+                <br>
+                <input type="text" name="title"
+                       placeholder="Post title"
+                       value="{{ request.form['title'] }}">
+            </label>
+            <br>
 
-        <label for="content">Description</label>
-        <br>
-        <textarea name="content"
-                  placeholder="Description"
-                  rows="15"
-                  cols="60"
-        >{{ request.form['content'] }}</textarea>
-        <br>
-        <label for="country">Country</label>
-        <br>
-        <input type="text" name="country"
-               placeholder="Country"
-               value="{{ request.form['country'] }}"></input>
-        <br>
-        <label for="city">City</label>
-        <br>
-        <input type="text" name="city"
-               placeholder="City"
-               value="{{ request.form['city'] }}"></input>
-        <br>
-        <label for="title">Language</label>
-        <br>
-        <input type="text" name="language"
-               placeholder="Language"
-               value="{{ request.form['language'] }}"></input>
-        <br>
-        <label for="title">Price</label>
-        <br>
-        <input type="text" name="price"
-               placeholder="Price per hour"
-               value="{{ request.form['price'] }}"></input>
-        <br>
-        <button id="button" type="submit">Submit</button>
-    </form>
+            <label for="content">
+                <br>
+                Description
+                <br>
+                <textarea name="content" rows="15" cols="60">
+                {{ request.form['content'] }}
+            </textarea>
+            </label>
+            <br>
+            <label for="country">
+                <br>
+                <input type="text" name="country"
+                       placeholder="Country"
+                       value="{{ request.form['country'] }}">
+            </label>
+            <br>
+            <label for="city">
+                <br>
+                <input type="text" name="city"
+                       placeholder="City"
+                       value="{{ request.form['city'] }}">
+            </label>
+            <br>
+            <label for="language">
+                <br>
+                <input type="text" name="language"
+                       placeholder="Language"
+                       value="{{ request.form['language'] }}">
+            </label>
+            <br>
+            <label for="price">
+                <br>
+                <input type="text" name="price"
+                       placeholder="Price per hour"
+                       value="{{ request.form['price'] }}">
+            </label>
+            <br>
+            <br>
+            <button id="button" type="submit">Submit</button>
+        </form>
+    </div>
 {% endblock %}
