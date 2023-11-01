@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 id="title">{% block title %} Chats {% endblock %}</h1>
     {% for chat in chat %}
         <div class='post'>
             <h2>{{ chat['firstname'] }} {{ chat['lastname'] }}</h2>

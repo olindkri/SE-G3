@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 id="title">{% block title %} My guides {% endblock %}</h1>
     {% for post in posts %}
         <div class='post'>
             <p id="date">{{ post['created'] }}</p>
@@ -9,6 +8,7 @@
             <div id="textsec">
                 <p>{{ post['content'] }}</p>
             </div>
+            <a href="{{ url_for('edit', id=post['id']) }}">Edit</a>
         </div>
     {% endfor %}
 {% endblock %}

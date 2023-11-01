@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 id="title">{% block title %} Profile {% endblock %}</h1>
     <div class='post'>
         {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
         <h1>{{ user['firstname'] }} {{ user['lastname'] }}</h1>
@@ -30,6 +29,7 @@
                 <p>{{ guide['content'] }}</p>
             </div>
             <h3>{{ guide['city'] }}, {{ guide['country'] }}</h3>
+            <a href="{{ url_for('view', id=guide['guide']) }}">View</a>
         </div>
     {% endfor %}
 {% endblock %}

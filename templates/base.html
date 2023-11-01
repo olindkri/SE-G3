@@ -5,6 +5,7 @@
     <title>{% block title %} {% endblock %}- Guide</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lexend&family=Montserrat&family=Onest:wght@700&family=Rubik&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
         .post {
             padding: 15px;
@@ -20,11 +21,6 @@
             padding-bottom: 7rem;
         }
 
-        nav {
-            background-color: #729a9d;
-            padding: 2vw;
-            border-radius: 0 0 2rem 2rem;
-        }
 
         nav a {
             color: #ffffff;
@@ -227,16 +223,60 @@
             bottom: 0;
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+            margin: 1vw;
+            background-color: #729a9d;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links li {
+            list-style: none;
+            margin: 0 12px;
+        }
+
+        .nav-links li a {
+            position: relative;
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 500;
+            padding: 6px 0;
+            text-decoration: none;
+        }
+
+        .nav-links li a:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background: #ffffff;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .nav-links li a:hover:before {
+            width: 100%;
+        }
+
+        .nav-links li.center a:before {
+            left: 50%;
+            transform: translateX(-50%);
+        }
     </style>
 </head>
 <body>
-<nav>
-    <a href="{{ url_for('index') }}">GUIDES</a>
-    <a href="{{ url_for('chat') }}">CHATS</a>
-    <a href="{{ url_for('planned') }}">PLANNED</a>
-    <a href="{{ url_for('user') }}">USER</a>
-    <a href="{{ url_for('profile') }}">PROFILE</a>
-</nav>
+<ul class="nav-links">
+    <li class="center"><a href="{{ url_for('index') }}">GUIDES</a></li>
+    <li class="center"><a href="{{ url_for('chat') }}">CHATS</a></li>
+    <li class="center"><a href="{{ url_for('planned') }}">PLANNED</a></li>
+    <li class="center"><a href="{{ url_for('user') }}">USER</a></li>
+    <li class="center"><a href="{{ url_for('profile') }}">PROFILE</a></li>
+</ul>
 <div class="content">
     {% for message in get_flashed_messages() %}
         <div class="alert">{{ message }}</div>
