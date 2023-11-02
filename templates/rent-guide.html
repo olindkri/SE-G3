@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class='post'>
+        {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
+        <h3>
+            <a id="profile"
+               href="{{ url_for('viewProfile', id=posts['id'], u=posts['byUser']) }}">{{ posts['firstname'] }} {{ posts['lastname'] }}
+            </a>
+        </h3>
+        <h2>{{ posts['title'] }}</h2>
+        <div id="textsec">
+            <p>{{ posts['content'] }}</p>
+        </div>
+        <h3>{{ posts['city'] }}, {{ posts['country'] }}</h3>
+        <h3>{{ posts['language'] }}</h3>
+        <h2>{{ posts['price'] }}kr /hour.</h2>
+    </div>
+    <div class="post">
+        <form method="post">
+            <label for="from">
+                From:
+                <br>
+                <input type="date" name="from"
+                       value="{{ request.form['from'] }}">
+            </label>
+            <br>
+            <label for="to">
+                To:
+                <br>
+                <input type="date" name="to"
+                       value="{{ request.form['to'] }}">
+            </label>
+            <br>
+            <button id="button" type="submit">Rent guide</button>
+        </form>
+    </div>
+{% endblock %}

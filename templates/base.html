@@ -5,12 +5,15 @@
     <title>{% block title %} {% endblock %}- Guide</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lexend&family=Montserrat&family=Onest:wght@700&family=Rubik&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
         .post {
-            padding: 10px;
+            padding: 15px;
             margin: 2vw;
             background-color: #f3f3f3;
             border-radius: 10px;
+            box-shadow: 5px 5px 9px #dbdbdb,
+            -5px -5px 9px #ffffff;
         }
 
         body {
@@ -18,11 +21,6 @@
             padding-bottom: 7rem;
         }
 
-        nav {
-            background-color: #729a9d;
-            padding: 2vw;
-            border-radius: 0 0 2rem 2rem;
-        }
 
         nav a {
             color: #ffffff;
@@ -38,11 +36,20 @@
             transition: 300ms;
         }
 
+        #textbox {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
         .alert {
             padding: 20px;
-            margin: 5px;
-            color: #970020;
-            background-color: #ffd5de;
+            margin: 2vw;
+            border-radius: 5px;
+            font-family: 'Rubik', sans-serif;
+            color: #000000;
+            background-color: #cba1a8;
         }
 
         h1, h2, h3 {
@@ -65,14 +72,17 @@
         #button {
             font-family: 'Rubik', sans-serif;
             font-size: 1.2em;
-            margin: 2vw;
             border-radius: 5px;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
             padding: 10px;
-            color: #ffffff;
-            background-color: #71ad71;
+            color: #3b3b3b;
             outline: none;
             border: none;
             transition: 300ms;
+            background: linear-gradient(145deg, #5bf295, #4dcb7d);
+            box-shadow: 5px 5px 9px #dbdbdb,
+            -5px -5px 9px #ffffff;
         }
 
         body .post a {
@@ -81,25 +91,50 @@
             display: inline-block;
             border-radius: 5px;
             padding: 10px;
-            color: #ffffff;
-            background-color: #71ad71;
+            color: #3b3b3b;
+            background: linear-gradient(145deg, #5bf295, #4dcb7d);
             outline: none;
             border: none;
             transition: 300ms;
         }
 
+        #textsec {
+            background-color: white;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: inset 5px 5px 10px #e0e0e0,
+            inset -5px -5px 10px #ffffff;
+        }
+
+        #profile {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.2em;
+            display: inline-block;
+            border-radius: 0;
+            padding: 0;
+            background: transparent;
+            color: darkblue;
+            outline: none;
+            border: none;
+        }
+
         body .post a:hover {
             background-color: #c6e7c6;
-            color: #484848;
+            color: #ffffff;
             transform: scale(1.05);
-            transition: 300ms;
+            transition: 150ms;
         }
 
         #button:hover {
             background-color: #c6e7c6;
-            color: #484848;
+            color: #ffffff;
             transform: scale(1.05);
-            transition: 300ms;
+            transition: 150ms;
         }
 
 
@@ -112,47 +147,48 @@
             height: 60px;
             border-radius: 10px;
             outline: none;
-            color: #ffffff;
-            background-color: #71ad71;
-            border: 2px solid black;
+            color: #3b3b3b;
+            border: none;
+            background: linear-gradient(145deg, #5bf295, #4dcb7d);
+            box-shadow: none;
             transition: 300ms;
         }
 
         #send-button:hover {
             background-color: #c6e7c6;
-            color: #484848;
+            color: #ffffff;
             transform: scale(1.05);
-            transition: 300ms;
+            transition: 150ms;
         }
 
         label {
             font-family: 'Lexend', sans-serif;
             width: 100%;
-            margin: 2vw;
         }
 
         input {
             border: 2px solid #ccc;
             width: 15em;
             height: 2.5em;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
             padding-left: 0.8em;
-            margin: 2vw;
             font-size: 16px;
             font-family: 'Montserrat', sans-serif;
             outline: none;
             overflow: hidden;
-            background-color: #F3F3F3;
+            background-color: #f8f8f8;
             border-radius: 10px;
             transition: all 0.5s;
         }
 
         textarea {
             height: 60px;
-            margin: 2vw;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
             padding: 12px 0.8em;
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
-            resize: none;
             border: 2px solid #ccc;
             border-radius: 10px;
             background-color: #f8f8f8;
@@ -162,7 +198,7 @@
         #messagearea {
             height: 60px;
             width: 100%;
-            margin-top: 2vw;
+            margin: 2vw;
             padding: 12px 0.8em;
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
@@ -176,7 +212,6 @@
 
         #date {
             color: grey;
-            font-size: 0.9rem;
         }
 
         #message-form {
@@ -188,15 +223,60 @@
             bottom: 0;
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+            margin: 1vw;
+            background-color: #729a9d;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links li {
+            list-style: none;
+            margin: 0 12px;
+        }
+
+        .nav-links li a {
+            position: relative;
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 500;
+            padding: 6px 0;
+            text-decoration: none;
+        }
+
+        .nav-links li a:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background: #ffffff;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .nav-links li a:hover:before {
+            width: 100%;
+        }
+
+        .nav-links li.center a:before {
+            left: 50%;
+            transform: translateX(-50%);
+        }
     </style>
 </head>
 <body>
-<nav>
-    <a href="{{ url_for('index') }}">GUIDES</a>
-    <a href="{{ url_for('chat') }}">CHATS</a>
-    <a href="{{ url_for('user') }}">USER</a>
-    <a href="{{ url_for('profile') }}">PROFILE</a>
-</nav>
+<ul class="nav-links">
+    <li class="center"><a href="{{ url_for('index') }}">GUIDES</a></li>
+    <li class="center"><a href="{{ url_for('chat') }}">CHATS</a></li>
+    <li class="center"><a href="{{ url_for('planned') }}">PLANNED</a></li>
+    <li class="center"><a href="{{ url_for('user') }}">USER</a></li>
+    <li class="center"><a href="{{ url_for('profile') }}">PROFILE</a></li>
+</ul>
 <div class="content">
     {% for message in get_flashed_messages() %}
         <div class="alert">{{ message }}</div>

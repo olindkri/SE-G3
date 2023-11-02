@@ -3,8 +3,21 @@
 {% block content %}
     <div class='post'>
         {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
+        <h3>
+            <a id="profile"
+               href="{{ url_for('viewProfile', id=posts['id'], u=posts['byUser']) }}">{{ posts['firstname'] }} {{ posts['lastname'] }}</a>
+        </h3>
         <h2>{{ posts['title'] }}</h2>
-        <h3>{{ posts['firstname'] }} {{ posts['lastname'] }}</h3>
-        <p>{{ posts['content'] }}</p>
+        <p id="date">{{ posts['created'] }}</p>
+        <div id="textsec">
+            <p>{{ posts['content'] }}</p>
+        </div>
+        <h3>{{ posts['city'] }}, {{ posts['country'] }}</h3>
+        <p>{{ posts['language'] }}</p>
+        <br>
+        <h3>
+            <a href="{{ url_for('rent', id=posts['id']) }}">Rent guide</a> {{ posts['price'] }}kr /hour.
+        </h3>
+
     </div>
 {% endblock %}
