@@ -223,6 +223,17 @@
             bottom: 0;
         }
 
+        #file {
+            border: none;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            overflow: hidden;
+            background-color: transparent;
+            border-radius: 0;
+            padding-left: 0;
+        }
+
         .nav-links {
             display: flex;
             align-items: center;
@@ -267,6 +278,24 @@
             left: 50%;
             transform: translateX(-50%);
         }
+
+        .pp {
+            display: inline-block;
+            position: relative;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 4px #729a9d solid;
+            box-shadow: 5px 5px 9px #dbdbdb,
+            -5px -5px 9px #ffffff;
+        }
+
+        .pp img {
+            width: auto;
+            height: 100%;
+        }
+
     </style>
 </head>
 <body>
@@ -275,6 +304,7 @@
     <li class="center"><a href="{{ url_for('chat') }}">CHATS</a></li>
     <li class="center"><a href="{{ url_for('planned') }}">PLANNED</a></li>
     <li class="center"><a href="{{ url_for('user') }}">USER</a></li>
+    <li class="center"><a href="{{ url_for('upload') }}">UPLOAD</a></li>
     <li class="center"><a href="{{ url_for('profile') }}">PROFILE</a></li>
 </ul>
 <div class="content">

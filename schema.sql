@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS chat;
 DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS guide_user;
+DROP TABLE IF EXISTS images;
 
 CREATE TABLE posts
 (
@@ -56,4 +57,12 @@ CREATE TABLE guide_user
     to_date   DATE    NOT NULL,
     FOREIGN KEY (user) REFERENCES user (id),
     FOREIGN KEY (guide) REFERENCES posts (id)
+);
+
+CREATE TABLE images
+(
+    id   INTEGER PRIMARY KEY AUTOINCREMENT,
+    img  TEXT,
+    user INTEGER,
+    FOREIGN KEY (user) REFERENCES user (id)
 );

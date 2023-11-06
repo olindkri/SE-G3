@@ -2,8 +2,12 @@
 
 {% block content %}
     <div class='post'>
-        {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
+        <object class="pp" data="{{ url_for('static', filename=image['img']) }}">
+            <img src="{{ url_for('static', filename='placeholder.png') }}" alt="profile picture">
+        </object>
+
         <h1>{{ user['firstname'] }} {{ user['lastname'] }}</h1>
+
         <div id="textsec">
             <h3>{{ user['age'] }}</h3>
             <h3>{{ user['country'] }}</h3>
@@ -17,7 +21,6 @@
     <h1 id="title">Upcoming guides</h1>
     {% for guide in guide %}
         <div class='post'>
-            {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
             <h3>
                 <a id="profile"
                    href="{{ url_for('viewProfile', id=guide['guide'], u=guide['user']) }}">{{ guide['firstname'] }} {{ guide['lastname'] }}
