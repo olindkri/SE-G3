@@ -135,7 +135,8 @@ def create():
 def viewProfile(id, u):
     conn = get_db_connection()
     global user_id
-    user = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser OR user.id = ?', (id, u,)).fetchone()
+    user = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser OR user.id = ?',
+                        (id, u,)).fetchone()
     if request.method == 'POST':
         conn.execute('INSERT INTO chat (user1, user2) VALUES (?, ?)',
                      (user_id, u))
