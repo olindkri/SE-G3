@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request, url_for, flash, redirect, abort
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'static/image'
+UPLOAD_FOLDER = 'static'
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1234'
@@ -102,12 +102,13 @@ def profile():
     elif request.form.get('redirect') == '2':
         return redirect(url_for('create'))
     conn = get_db_connection()
-    user = conn.execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
+    user = conn.execute('SELECT * FROM user WHERE user.id = ?', (user_id,)).fetchone()
     guide = conn.execute(
         'SELECT * FROM guide_user, posts, user WHERE guide_user.user = ? AND posts.id = guide_user.guide AND user.id = posts.byUser',
         (user_id,)).fetchall()
+    image = conn.execute('SELECT * FROM images WHERE images.user = ?', (user_id,)).fetchone()
     conn.close()
-    return render_template('profile.html', user=user, guide=guide)
+    return render_template('profile.html', user=user, guide=guide, image=image)
 
 
 @app.route('/create/', methods=('GET', 'POST'))

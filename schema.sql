@@ -63,6 +63,6 @@ CREATE TABLE images
 (
     id   INTEGER PRIMARY KEY AUTOINCREMENT,
     img  TEXT,
-    user INTEGER NOT NULL,
+    user INTEGER,
     FOREIGN KEY (user) REFERENCES user (id)
 );

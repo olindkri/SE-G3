@@ -2,7 +2,6 @@
 
 {% block content %}
     <div class='post'>
-        {# This is how you would add an Image. <img src= "{{url_for('static', filename='/image/edit.png')}}" > #}
         <h3>
             <a id="profile"
                href="{{ url_for('viewProfile', id=posts['id'], u=posts['byUser']) }}">{{ posts['firstname'] }} {{ posts['lastname'] }}
