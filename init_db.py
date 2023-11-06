@@ -86,6 +86,9 @@ cur.execute("INSERT INTO guide_user (user, guide, from_date, to_date) VALUES (?,
 cur.execute("INSERT INTO guide_user (user, guide, from_date, to_date) VALUES (?, ?, ?, ?)",
             (2, 1, "2023-11-04", "2023-11-14")
             )
+cur.execute("INSERT INTO images (img, user) VALUES (?, ?)",
+            ("e36.jpeg", 1)
+            )
 
 connection.commit()
 connection.close()

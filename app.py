@@ -1,8 +1,13 @@
 import sqlite3
+import os
 from flask import Flask, render_template, request, url_for, flash, redirect, abort
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = 'static/image'
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1234'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 user_id = 1
 
@@ -135,7 +140,8 @@ def create():
 def viewProfile(id, u):
     conn = get_db_connection()
     global user_id
-    user = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser OR user.id = ?', (id, u,)).fetchone()
+    user = conn.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser OR user.id = ?',
+                        (id, u,)).fetchone()
     if request.method == 'POST':
         conn.execute('INSERT INTO chat (user1, user2) VALUES (?, ?)',
                      (user_id, u))
@@ -234,3 +240,26 @@ def delete(id):
     conn.close()
     flash('"{}" was successfully deleted!'.format(post['title']))
     return redirect(url_for('guides'))
+
+
+@app.route('/upload/', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            conn = get_db_connection()
+            conn.execute(
+                'INSERT INTO images (img, user) VALUES (?, ?)',
+                (file.filename, user_id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('profile'))
+    return render_template("upload.html")
