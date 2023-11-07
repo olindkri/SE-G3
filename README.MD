@@ -12,9 +12,17 @@
 **Write the following commands in the terminal or powershell:**
 > Make sure you are inside the /SE-G3 directory.
 
+&nbsp;&nbsp;&nbsp;&nbsp;`pip install --user virtualenv`
+
+&nbsp;&nbsp;&nbsp;&nbsp;`pip install -r ./requirements.txt`
+
+If python is not recognized:
+
 &nbsp;&nbsp;&nbsp;&nbsp;`python3 -m pip install --user virtualenv`
 
 &nbsp;&nbsp;&nbsp;&nbsp;`python3 -m pip install -r ./requirements.txt`
+
+> Remove --user if you are running this in a virtual environment (venv).
 
 <br>
 
