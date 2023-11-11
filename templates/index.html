@@ -7,6 +7,7 @@
                 <a id="profile"
                    href="{{ url_for('viewProfile', id=post['id'], u=post['byUser']) }}">{{ post['firstname'] }} {{ post['lastname'] }}</a>
             </h3>
+            <p id="type">{{ post['type'] }}</p>
             <p id="date">{{ post['created'] }}</p>
             <h2>{{ post['title'] }}</h2>
             <h3>{{ post['city'] }}, {{ post['country'] }}</h3>

@@ -166,7 +166,7 @@
             width: 100%;
         }
 
-        input {
+        input, select {
             border: 2px solid #ccc;
             width: 15em;
             height: 2.5em;
@@ -296,6 +296,20 @@
             height: 100%;
         }
 
+        #type {
+            font-family: 'Rubik', sans-serif;
+            font-size: 0.9rem;
+            width: 150px;
+            padding: 5px;
+            text-align: center;
+            border-radius: 20px;
+            outline: none;
+            color: #3b3b3b;
+            border: none;
+            background: linear-gradient(145deg, #eaae86, #f5c19e);
+            box-shadow: none;
+        }
+
     </style>
 </head>
 <body>
@@ -304,7 +318,6 @@
     <li class="center"><a href="{{ url_for('chat') }}">CHATS</a></li>
     <li class="center"><a href="{{ url_for('planned') }}">PLANNED</a></li>
     <li class="center"><a href="{{ url_for('user') }}">USER</a></li>
-    <li class="center"><a href="{{ url_for('upload') }}">UPLOAD</a></li>
     <li class="center"><a href="{{ url_for('profile') }}">PROFILE</a></li>
 </ul>
 <div class="content">

@@ -48,6 +48,16 @@
                        value="{{ request.form['price'] or post['price'] }}">
             </label>
             <br>
+            <label for="type">
+                <br>
+                <select name="type">
+                    <option value="Private individual">Private individual</option>
+                    <option value="museum">Museum</option>
+                    <option value="company">Local company</option>
+                    value="{{ request.form['type'] or post['type'] }}">
+                </select>
+            </label>
+            <br>
             <br>
             <button id="button" type="submit">Submit</button>
         </form>

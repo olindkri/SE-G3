@@ -16,6 +16,7 @@ CREATE TABLE posts
     city     TEXT      NOT NULL,
     language TEXT,
     price    INTEGER   NOT NULL,
+    type     TEXT,
     FOREIGN KEY (byUser) REFERENCES user (id)
 );
 
