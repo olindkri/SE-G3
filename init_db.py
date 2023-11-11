@@ -88,11 +88,11 @@ cur.execute("INSERT INTO guide_user (user, guide, from_date, to_date) VALUES (?,
             )
 
 cur.execute("INSERT INTO images (img, user) VALUES (?, ?)",
-            ("e36.jpeg", 1)
+            ("shinji.jpg", 1)
             )
 
 cur.execute("INSERT INTO images (img, user) VALUES (?, ?)",
-            ("cedrik.png", 2)
+            ("evangelion.jpg", 2)
             )
 
 connection.commit()

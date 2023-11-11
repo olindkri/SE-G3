@@ -44,10 +44,10 @@ def user():
         global user_id
         if request.form.get('user1') == '1':
             user_id = 1
-            return redirect(url_for('index'))
+            return redirect(url_for('profile'))
         elif request.form.get('user2') == '2':
             user_id = 2
-            return redirect(url_for('index'))
+            return redirect(url_for('profile'))
 
     return render_template('user.html')
 
@@ -109,7 +109,7 @@ def profile():
     guide = db.execute(
         'SELECT * FROM guide_user, posts, user WHERE guide_user.user = ? AND posts.id = guide_user.guide AND user.id = posts.byUser',
         (user_id,)).fetchall()
-    image = db.execute('SELECT * FROM images WHERE images.user = ?', (user_id,)).fetchone()
+    image = db.execute('SELECT * FROM images WHERE images.user = ? ORDER BY id DESC LIMIT 1', (user_id,)).fetchone()
     db.close()
     return render_template('profile.html', user=user, guide=guide, image=image)
 
