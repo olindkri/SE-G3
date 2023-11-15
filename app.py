@@ -267,6 +267,7 @@ def upload():
             db.execute(
                 'DELETE FROM images where images.user = ?',
                 (user_id,))
+            db.commit()
             db.execute(
                 'INSERT INTO images (img, user) VALUES (?, ?)',
                 (file.filename, user_id))
