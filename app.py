@@ -261,10 +261,20 @@ def upload():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['IMAGES'], filename))
             db = get_db_connection()
+            old = db.execute(
+                'SELECT img FROM images WHERE images.user = ?',
+                (user_id,)).fetchone()
+            db.execute(
+                'DELETE FROM images where images.user = ?',
+                (user_id,))
             db.execute(
                 'INSERT INTO images (img, user) VALUES (?, ?)',
                 (file.filename, user_id))
             db.commit()
             db.close()
+            file = old['img']
+            location = 'static'
+            path = os.path.join(location, file)
+            os.remove(path)
             return redirect(url_for('profile'))
     return render_template("upload.html")
