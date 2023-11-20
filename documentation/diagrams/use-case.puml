@@ -1,0 +1,24 @@
+@startuml usecase
+left to right direction
+:User: --> (profile)
+:User: --> (home)
+:User: --> (planned guides)
+:User: --> (messages)
+:User: --> (user)
+
+(profile) --> (my guides)
+(profile) --> (create guide)
+(profile) --> (upload profile picture)
+(profile) --> (view upcoming guides)
+
+(home) --> (guide post)
+(guide post) --> (view guide profile)
+(guide post) --> (view guide)
+(view guide) --> (rent guide)
+
+(messages) --> (message user)
+(message user) --> (send message)
+
+(user) --> (switch user)
+
+@enduml

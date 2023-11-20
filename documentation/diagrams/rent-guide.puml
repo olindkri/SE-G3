@@ -1,0 +1,33 @@
+@startuml sekvens
+actor User
+User -> Payment: Rent guide
+
+activate Payment
+User -> Payment: Paymentinformation
+Payment -> CardPayment: Payment
+
+activate CardPayment
+CardPayment -> CardTerminal: Valid payment
+
+alt #LightGreen Success
+    activate CardTerminal
+    |||
+    CardTerminal --> CardPayment: Payment sucessfull
+    CardPayment --> Payment: Payment sucessfull
+    Payment --> User: Payment sucessfull
+
+    database Database
+    Payment -> Database: Notify user of sucessfull booking
+    deactivate Payment
+
+else #Pink Failure
+    CardTerminal --> CardPayment: Payment denied
+    deactivate CardTerminal
+
+    CardPayment --> Payment: Payment denied
+    deactivate CardPayment
+
+    Payment --> User: Payment denied
+end
+|||
+@endumll
