@@ -2,10 +2,14 @@
 
 {% block content %}
     <div class='post'>
+        <object class="pp" data="{{ url_for('static', filename=image['img']) }}">
+            <img src="{{ url_for('static', filename='placeholder.png') }}" alt="profile picture">
+        </object>
+
         <h1>{{ user['firstname'] }} {{ user['lastname'] }}</h1>
         <div id="textsec">
-            <h3>{{ user['age'] }}</h3>
-            <h3>{{ user['country'] }}</h3>
+            <h3>Age: {{ user['age'] }}</h3>
+            <h3>Country: {{ user['country'] }}</h3>
         </div>
     </div>
     <div class="post">
@@ -13,4 +17,18 @@
             <button id="button" type="submit">Message {{ user['firstname'] }}</button>
         </form>
     </div>
+    <h1 id="title">{{ user['firstname'] }}'s guides</h1>
+    {% for post in posts %}
+        <div class='post'>
+            <h3>
+                <a id="profile"
+                   href="{{ url_for('viewProfile', id=post['id'], u=post['byUser']) }}">{{ post['firstname'] }} {{ post['lastname'] }}</a>
+            </h3>
+            <p id="type">{{ post['type'] }}</p>
+            <p id="date">{{ post['created'] }}</p>
+            <h2>{{ post['title'] }}</h2>
+            <h3>{{ post['city'] }}, {{ post['country'] }}</h3>
+            <a href="{{ url_for('view', id=post['id']) }}">View</a>
+        </div>
+    {% endfor %}
 {% endblock %}
