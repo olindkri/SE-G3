@@ -200,7 +200,7 @@ def test_switch_user(client):
 def test_create_route_post_invalid(client):
     """Test the /create/ route with invalid POST request"""
     invalid_data = {
-        'title': '',  # Empty title
+        'title': '2',  # Empty title
         'content': 'Some content',
         'country': 'CountryX',
         'city': 'CityY',
