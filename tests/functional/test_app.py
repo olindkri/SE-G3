@@ -208,7 +208,7 @@ def test_create_route_post_invalid(client):
         'price': '100'
     }
     response = client.post('/create/', data=invalid_data)
-    assert response.status_code == 302  # No redirection, stay on page with error
+    assert response.status_code == 400  # No redirection, stay on page with error
     assert b'Title is required!' in response.data  # Check for error message
 
 
