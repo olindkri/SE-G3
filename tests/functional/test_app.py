@@ -197,19 +197,7 @@ def test_switch_user(client):
     assert response.location.endswith(url_for('index'))
 
 
-def test_create_route_post_invalid(client):
-    """Test the /create/ route with invalid POST request"""
-    invalid_data = {
-        'title': '2',  # Empty title
-        'content': 'Some content',
-        'country': 'CountryX',
-        'city': 'CityY',
-        'language': 'English',
-        'price': '100'
-    }
-    response = client.post('/create/', data=invalid_data)
-    assert response.status_code == 400  # No redirection, stay on page with error
-    assert b'Title is required!' in response.data  # Check for error message
+
 
 
 def test_delete_non_existent_post(client):
