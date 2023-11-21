@@ -48,6 +48,12 @@ def user():
         elif request.form.get('user2') == '2':
             user_id = 2
             return redirect(url_for('profile'))
+        elif request.form.get('user3') == '3':
+            user_id = 3
+            return redirect(url_for('profile'))
+        elif request.form.get('user4') == '4':
+            user_id = 4
+            return redirect(url_for('profile'))
 
     return render_template('user.html')
 
@@ -147,13 +153,16 @@ def viewProfile(id, u):
     global user_id
     user = db.execute('SELECT * FROM posts, user WHERE posts.id = ? AND user.id = posts.byUser OR user.id = ?',
                       (id, u,)).fetchone()
+    posts = db.execute('SELECT * FROM posts, user WHERE user.id = ? AND posts.byUser = user.id ORDER BY posts.id DESC',
+                       (u,)).fetchall()
+    image = db.execute('SELECT * FROM images WHERE images.user = ? ORDER BY id DESC LIMIT 1', (u,)).fetchone()
     if request.method == 'POST':
         db.execute('INSERT INTO chat (user1, user2) VALUES (?, ?)',
                    (user_id, u))
         db.commit()
         db.close()
         return redirect(url_for('chat'))
-    return render_template('view-profile.html', user=user)
+    return render_template('view-profile.html', user=user, posts=posts, image=image)
 
 
 @app.route('/<int:id>/rent/', methods=('GET', 'POST'))

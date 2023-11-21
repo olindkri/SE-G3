@@ -9,8 +9,8 @@
         <h1>{{ user['firstname'] }} {{ user['lastname'] }}</h1>
 
         <div id="textsec">
-            <h3>{{ user['age'] }}</h3>
-            <h3>{{ user['country'] }}</h3>
+            <h3>Age: {{ user['age'] }}</h3>
+            <h3>Country: {{ user['country'] }}</h3>
         </div>
 
         <form method="post" action="/profile/">
@@ -24,7 +24,7 @@
         <div class='post'>
             <h3>
                 <a id="profile"
-                   href="{{ url_for('viewProfile', id=guide['guide'], u=guide['user']) }}">{{ guide['firstname'] }} {{ guide['lastname'] }}
+                   href="{{ url_for('viewProfile', id=guide['guide'], u=guide['byUser']) }}">{{ guide['firstname'] }} {{ guide['lastname'] }}
                 </a>
             </h3>
             <p id="date">({{ guide['from_date'] }}) - ({{ guide['to_date'] }})</p>
