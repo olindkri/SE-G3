@@ -7,17 +7,17 @@ User -> Payment: Paymentinformation
 Payment -> CardPayment: Payment
 
 activate CardPayment
-CardPayment -> CardTerminal: Valid payment
+CardPayment -> CardTerminal: Validate payment
 
 alt #LightGreen Success
     activate CardTerminal
     |||
     CardTerminal --> CardPayment: Payment sucessfull
     CardPayment --> Payment: Payment sucessfull
-    Payment --> User: Payment sucessfull
 
     database Database
-    Payment -> Database: Notify user of sucessfull booking
+    Payment -> User: Sucessfull booking
+    Payment -> Database: Update database
     deactivate Payment
 
 else #Pink Failure
@@ -27,7 +27,7 @@ else #Pink Failure
     CardPayment --> Payment: Payment denied
     deactivate CardPayment
 
-    Payment --> User: Payment denied
+    Payment --> User: Unsucessfull booking
 end
 |||
 @endumll

@@ -1,11 +1,10 @@
 import pytest
-
 from flask import url_for
-
 from app import app, get_db_connection, get_post
 
 # Configure the app for testing
 app.config['TESTING'] = True
+
 
 @pytest.fixture(scope='function')
 def client():
@@ -26,6 +25,8 @@ def client():
             conn.execute('DROP TABLE IF EXISTS posts')
             conn.execute('DROP TABLE IF EXISTS user')
             conn.commit()
+
+
 def test_create_route_post_valid(client):
     """Test the /create/ route for a valid POST request"""
     valid_data = {
@@ -40,20 +41,10 @@ def test_create_route_post_valid(client):
     assert response.status_code == 400  # Assuming redirection to /my-guides/
 
 
-
-
-
 def test_index(client):
     """Test the index route"""
     response = client.get('/')
     assert response.status_code == 200
-
-
-
-
-
-
-
 
 
 def test_user_route_get(client):
@@ -99,14 +90,16 @@ def test_create_route_get(client):
     response = client.get('/create/')
     assert response.status_code == 200
 
+
 @pytest.fixture(scope='function')
 def setup_database(client):
     """Setup the database with necessary test data"""
     with app.app_context():
         conn = get_db_connection()
         # Insert a sample post
-        conn.execute('INSERT INTO posts (title, content, country, city, language, price, byUser) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                     ('Test Post', 'Content of the test post', 'Testland', 'Testville', 'English', '100', 1))
+        conn.execute(
+            'INSERT INTO posts (title, content, country, city, language, price, byUser) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            ('Test Post', 'Content of the test post', 'Testland', 'Testville', 'English', '100', 1))
         conn.commit()
         post_id = conn.execute('SELECT last_insert_rowid()').fetchone()[0]
 
@@ -116,11 +109,13 @@ def setup_database(client):
         conn.execute('DELETE FROM posts WHERE id = ?', (post_id,))
         conn.commit()
 
+
 def test_edit_route_get(client, setup_database):
     """Test the /edit/ route for GET request"""
     post_id = setup_database
     response = client.get(f'/{post_id}/edit/')
     assert response.status_code == 200
+
 
 def test_edit_route_post_valid(client, setup_database):
     """Test the /edit/ route for a valid POST request"""
@@ -129,19 +124,21 @@ def test_edit_route_post_valid(client, setup_database):
         'title': 'Updated Title',
         'content': 'Updated content.',
         'country': 'NewCountry',  # Assuming this field is required
-        'city': 'NewCity',        # Assuming this field is required
-        'language': 'NewLanguage',# Assuming this field is required
-        'price': '200'            # Assuming this field is required
+        'city': 'NewCity',  # Assuming this field is required
+        'language': 'NewLanguage',  # Assuming this field is required
+        'price': '200'  # Assuming this field is required
 
     }
     response = client.post(f'/{post_id}/edit/', data=valid_data)
     assert response.status_code == 302  # Assuming redirection after successful edit
+
 
 def test_profile_route_post(client):
     """Test the /profile/ route for POST request"""
     # Assuming the POST request involves some form submission or action
     response = client.post('/profile/', data={'some_field': 'some_value'})
     assert response.status_code == 200  # or 302 if there's a redirection
+
 
 def test_non_existent_route(client):
     """Test a route that does not exist"""
@@ -169,6 +166,7 @@ def test_rent_route(client, setup_database):
     assert response.status_code == 302  # Assuming a successful rent leads to a redirect
     # Add further checks if necessary, such as database validation
 
+
 def test_send_message(client):
     """Test sending a message."""
     message_data = {
@@ -177,6 +175,7 @@ def test_send_message(client):
     chat_id = 1  # Assuming there is a chat with ID 1
     response = client.post(f'/{chat_id}/message/', data=message_data)
     assert response.status_code == 302  # Assuming redirection after successful POST
+
 
 def test_retrieve_chat(client):
     """Test retrieving chat messages."""
@@ -197,24 +196,24 @@ def test_switch_user(client):
     assert response.location.endswith(url_for('index'))
 
 
-
-
-
 def test_delete_non_existent_post(client):
     """Test deleting a post that does not exist"""
     response = client.post('/999/delete/')  # Assuming 999 is a non-existent post ID
     assert response.status_code in [404, 302]  # Not Found or Redirect to another page
+
 
 def test_view_non_existent_profile(client):
     """Test viewing a non-existent user profile"""
     response = client.get('/999/profile/')  # Assuming 999 is a non-existent user ID
     assert response.status_code == 404  # Not Found
 
+
 def test_edit_non_existent_post(client):
     """Test editing a non-existent post"""
     non_existent_post_id = 999  # Assuming 999 is a non-existent post ID
     response = client.get(f'/{non_existent_post_id}/edit/')
     assert response.status_code == 404  # Not Found
+
 
 def test_send_empty_message(client):
     """Test sending an empty message."""
@@ -227,13 +226,11 @@ def test_send_empty_message(client):
     assert b'You need to write something.' in response.data  # Check for error message
 
 
-
-
-
 def test_access_user_profile(client):
     """Test accessing the user profile"""
     response = client.get('/profile/')
     assert response.status_code == 200
+
 
 def test_create_post_with_missing_fields(client):
     """Test creating a post with missing required fields"""
@@ -245,6 +242,7 @@ def test_create_post_with_missing_fields(client):
     response = client.post('/create/', data=incomplete_data)
     assert response.status_code == 400  # Expecting to stay on page with error message
 
+
 def test_sending_valid_message(client):
     """Test sending a valid message in chat"""
     valid_message_data = {
@@ -254,10 +252,12 @@ def test_sending_valid_message(client):
     response = client.post(f'/{chat_id}/message/', data=valid_message_data)
     assert response.status_code == 302  # Assuming redirection after successful message sending
 
+
 def test_access_planned_guides(client):
     """Test accessing the planned guides page"""
     response = client.get('/planned/')
     assert response.status_code == 200
+
 
 def test_non_existent_user_access(client):
     """Test accessing a non-existent user's profile"""
@@ -272,11 +272,13 @@ def test_non_existent_user_access(client):
     response = client.get(f'/user/{non_existent_user_id}/')  # Adjust URL as per your app's routes
     assert response.status_code == 404  # Adjust as per your app's behavior
 
+
 def test_non_existent_post_access(client):
     """Test accessing a non-existent post"""
     non_existent_post_id = 999  # Assuming 999 is a non-existent post ID
     response = client.get(f'/view/{non_existent_post_id}/')  # Adjust URL as per your app's routes
     assert response.status_code == 404  # Adjust as per your app's behavior
+
 
 def test_submit_invalid_data_in_form(client):
     """Test submitting invalid data in a form"""
@@ -290,6 +292,7 @@ def test_submit_invalid_data_in_form(client):
     assert response.status_code == 400  # Assuming it stays on the same page with an error
     # Check for specific error message if applicable
 
+
 def test_user_switching(client):
     """Test switching between two different users."""
     # Switch to user1
@@ -302,11 +305,13 @@ def test_user_switching(client):
     assert response.status_code == 302
     assert '/' in response.headers['Location']  # Assuming user is redirected to index
 
+
 def test_invalid_user_switching(client):
     """Test switching to a non-existent user."""
     response = client.post('/user/', data={'user999': '999'})
     assert response.status_code == 200  # Assuming it returns a 404 for non-existent users
     # Optionally, check for a specific message in response.data
+
 
 def test_chat_functionality(client):
     """Test chat functionality between two users."""
@@ -320,11 +325,13 @@ def test_chat_functionality(client):
     response = client.post('/1/message/', data={'message': 'Hello from user2'})
     assert response.status_code == 302
 
+
 def test_invalid_guide_creation(client):
     """Test creating a guide with missing or invalid data."""
     invalid_data = {'title': '', 'content': 'Sample content'}  # Missing other fields
     response = client.post('/create/', data=invalid_data)
     assert response.status_code == 400  # Adjust based on your validation
+
 
 def test_rent_guide_future_dates(client):
     """Test renting a guide with future dates."""
@@ -332,11 +339,13 @@ def test_rent_guide_future_dates(client):
     response = client.post('/1/rent/', data=future_rent_data)  # Adjust '1' to a valid guide ID
     assert response.status_code == 302
 
+
 def test_rent_guide_past_dates(client):
     """Test renting a guide with past dates."""
     past_rent_data = {'from': '2020-01-01', 'to': '2020-01-07'}
     response = client.post('/1/rent/', data=past_rent_data)
     assert response.status_code == 302  # Assuming an error for past dates
+
 
 def test_invalid_profile_access(client):
     """Test accessing a profile page with an invalid user ID."""
@@ -355,11 +364,13 @@ def test_send_message_non_existent_chat(client):
     response = client.post('/999/message/', data={'message': 'Hello'})
     assert response.status_code == 302
 
+
 def test_update_user_profile(client):
     """Test updating a user's profile."""
     update_data = {'firstname': 'NewFirstName', 'lastname': 'NewLastName', 'age': 30, 'country': 'NewCountry'}
     response = client.post('/profile/update/', data=update_data)  # Adjust URL as per your app's routes
     assert response.status_code == 404  # Assuming a redirect after update
+
 
 def test_create_post_invalid_price(client):
     """Test creating a post with invalid price."""
@@ -374,15 +385,18 @@ def test_create_post_invalid_price(client):
     response = client.post('/create/', data=invalid_data)
     assert response.status_code == 400  # Assuming validation error
 
+
 def test_access_chat_invalid_user(client):
     """Test accessing chat with an invalid user."""
     response = client.get('/chat/999/')  # Assuming 999 is an invalid chat ID
     assert response.status_code == 404
 
+
 def test_delete_user(client):
     """Test deleting a user profile."""
     response = client.post('/profile/1/delete/')  # Adjust '1' to a valid user ID
     assert response.status_code == 404  # Assuming redirect after deletion
+
 
 def test_access_guide_invalid_user(client):
     """Test accessing a guide with an invalid user."""
@@ -394,6 +408,7 @@ def test_logout_functionality(client):
     """Test logout functionality."""
     response = client.get('/logout/')  # Adjust as per your app's logout URL
     assert response.status_code == 404  # Assuming redirect to login or index page
+
 
 def test_invalid_data_submission_edit_guide(client, setup_database):
     """Test submitting invalid data in edit guide form."""
@@ -407,10 +422,7 @@ def test_invalid_data_submission_edit_guide(client, setup_database):
     assert response.status_code == 400  # Assuming it stays on the same page with an error
 
 
-
-
 @pytest.mark.parametrize("path", ["/profile/", "/create/"])
 def test_get_requests(client, path):
     response = client.get(path)
     assert response.status_code == 200
-
