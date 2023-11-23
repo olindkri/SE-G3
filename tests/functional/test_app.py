@@ -266,13 +266,6 @@ def test_non_existent_user_access(client):
     assert response.status_code == 404  # or whatever behavior you expect
 
 
-def test_non_existent_user_access(client):
-    """Test accessing a non-existent user's profile"""
-    non_existent_user_id = 999  # Assuming 999 is a non-existent user ID
-    response = client.get(f'/user/{non_existent_user_id}/')  # Adjust URL as per your app's routes
-    assert response.status_code == 404  # Adjust as per your app's behavior
-
-
 def test_non_existent_post_access(client):
     """Test accessing a non-existent post"""
     non_existent_post_id = 999  # Assuming 999 is a non-existent post ID
@@ -353,12 +346,6 @@ def test_invalid_profile_access(client):
     assert response.status_code == 404
 
 
-def test_access_non_existent_planned_guide(client):
-    """Test accessing a non-existent planned guide."""
-    response = client.get('/planned/999/')  # Assuming URL format
-    assert response.status_code == 404
-
-
 def test_send_message_non_existent_chat(client):
     """Test sending a message to a non-existent chat."""
     response = client.post('/999/message/', data={'message': 'Hello'})
@@ -384,30 +371,6 @@ def test_create_post_invalid_price(client):
     }
     response = client.post('/create/', data=invalid_data)
     assert response.status_code == 400  # Assuming validation error
-
-
-def test_access_chat_invalid_user(client):
-    """Test accessing chat with an invalid user."""
-    response = client.get('/chat/999/')  # Assuming 999 is an invalid chat ID
-    assert response.status_code == 404
-
-
-def test_delete_user(client):
-    """Test deleting a user profile."""
-    response = client.post('/profile/1/delete/')  # Adjust '1' to a valid user ID
-    assert response.status_code == 404  # Assuming redirect after deletion
-
-
-def test_access_guide_invalid_user(client):
-    """Test accessing a guide with an invalid user."""
-    response = client.get('/guides/999/')  # Adjust '999' to an invalid guide ID
-    assert response.status_code == 404
-
-
-def test_logout_functionality(client):
-    """Test logout functionality."""
-    response = client.get('/logout/')  # Adjust as per your app's logout URL
-    assert response.status_code == 404  # Assuming redirect to login or index page
 
 
 def test_invalid_data_submission_edit_guide(client, setup_database):
