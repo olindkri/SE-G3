@@ -22,14 +22,6 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;`pip install -r ./requirements.txt`
 
-If python is not recognized:
-
-> Remove --user if you are running this in a virtual environment (venv).
-
-&nbsp;&nbsp;&nbsp;&nbsp;`python3 -m pip install --user virtualenv`
-
-&nbsp;&nbsp;&nbsp;&nbsp;`python3 -m pip install -r ./requirements.txt`
-
 <br>
 
 **Now you can run the prototype by typing this command in the terminal:**
