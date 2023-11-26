@@ -3,6 +3,8 @@
 /.env/
 /env/
 /.idea/
+.coverage
 .pyc
+*.pytest_cache
 *.pyc
 .DS_Store
