@@ -1,9 +1,16 @@
 import pytest
 from flask import url_for
+import sqlite3
 from app import app, get_db_connection, get_post
 
 # Configure the app for testing
 app.config['TESTING'] = True
+
+
+def get_test_db_connection():
+    db = sqlite3.connect('test.db')
+    db.row_factory = sqlite3.Row
+    return db
 
 
 @pytest.fixture(scope='function')
@@ -12,7 +19,7 @@ def client():
     with app.test_client() as client:
         with app.app_context():
             # Setup: Create the necessary tables
-            conn = get_db_connection()
+            conn = get_test_db_connection()
             with app.open_resource('schema.sql', mode='r') as f:
                 conn.cursor().executescript(f.read())
             conn.commit()
@@ -21,7 +28,7 @@ def client():
 
         with app.app_context():
             # Teardown: Drop the tables after each test
-            conn = get_db_connection()
+            conn = get_test_db_connection()
             conn.execute('DROP TABLE IF EXISTS posts')
             conn.execute('DROP TABLE IF EXISTS user')
             conn.commit()
