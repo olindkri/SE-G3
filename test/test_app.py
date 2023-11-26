@@ -202,6 +202,20 @@ def test_delete_non_existent_post(client):
     response = client.post('/999/delete/')  # Assuming 999 is a non-existent post ID
     assert response.status_code in [404, 302]  # Not Found or Redirect to another page
 
+def test_delete_guide(client, setup_database):
+    # Assuming setup_database sets up a guide and returns its id
+    guide_id = setup_database
+
+    response = client.post(f'/{guide_id}/delete/', follow_redirects=True)
+    assert response.status_code == 200  # Assuming successful deletion leads to a redirect
+
+    # Verify the guide is removed from the database
+    with app.app_context():
+        db = get_db_connection()
+        post = db.execute('SELECT * FROM posts WHERE id = ?', (guide_id,)).fetchone()
+        assert post is None
+
+
 
 def test_view_non_existent_profile(client):
     """Test viewing a non-existent user profile"""
@@ -326,6 +340,21 @@ def test_invalid_guide_creation(client):
     response = client.post('/create/', data=invalid_data)
     assert response.status_code == 400  # Adjust based on your validation
 
+def test_rent_guide(client, setup_database):
+    guide_id = setup_database  # Setup a guide for renting
+    rent_data = {
+        'from': '2023-01-01',
+        'to': '2023-01-07'
+    }
+    response = client.post(f'/{guide_id}/rent/', data=rent_data)
+    assert response.status_code == 302  # Redirect after renting
+
+    # Verify the rent entry in the database
+    with app.app_context():
+        db = get_db_connection()
+        rent_entry = db.execute('SELECT * FROM guide_user WHERE guide = ?', (guide_id,)).fetchone()
+        assert rent_entry is not None
+
 
 def test_rent_guide_future_dates(client):
     """Test renting a guide with future dates."""
@@ -390,3 +419,5 @@ def test_invalid_data_submission_edit_guide(client, setup_database):
 def test_get_requests(client, path):
     response = client.get(path)
     assert response.status_code == 200
+
+
