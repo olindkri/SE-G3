@@ -25,6 +25,6 @@ jobs:
         run: echo "PYTHONPATH=\$PYTHONPATH:${{ github.workspace }}" >> $GITHUB_ENV
       - name: Run tests with coverage
         run: |
-          coverage run -m pytest
+          coverage run -m pytest -s -v
           coverage report
           coverage xml  # Optional: Generate an XML report for use with other tools
