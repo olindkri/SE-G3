@@ -1,6 +1,5 @@
 import pytest
 from flask import url_for
-import sqlite3
 from app import app, get_db_connection, get_post
 
 # Configure the app for testing
@@ -175,6 +174,10 @@ def test_send_message(client):
     }
     chat_id = 1  # Assuming there is a chat with ID 1
     response = client.post(f'/{chat_id}/message/', data=message_data)
+    conn = get_db_connection()
+    test = conn.execute('SELECT * FROM message where id = 1').fetchone()
+    conn.commit()
+    assert test['id'] is not None
     assert response.status_code == 302  # Assuming redirection after successful POST
 
 
