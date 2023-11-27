@@ -37,7 +37,11 @@ https://www.python.org/downloads/
 **Write the following commands in the terminal or powershell:**
 > Make sure you are inside the /SE-G3 directory.
 
-If you have already followed the prototype steps:
+If already in virtual environment:
+
 &nbsp;&nbsp;&nbsp;&nbsp;`coverage run -m pytest -s -v test/test_app.py`
+
 &nbsp;&nbsp;&nbsp;&nbsp;`coverage report`
+
+If not in a virtual environment, run the first lines in the prototype sections. Run the test lines afterwards.
 
