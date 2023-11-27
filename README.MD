@@ -7,6 +7,8 @@
 - Sakariya Adan Mahamud
 - Stephen Stenberg
 
+**The project documentation and the individual attachments are inside the documentation folder.**
+
 Make sure you have Python 3.8 or newer installed.
 Python version downloads:
 https://www.python.org/downloads/
@@ -43,5 +45,5 @@ If already in virtual environment:
 
 &nbsp;&nbsp;&nbsp;&nbsp;`coverage report`
 
-If not in a virtual environment, run the first lines in the prototype sections. Run the test lines afterwards.
+If not in a virtual environment, run the first lines in the prototype section. Run the testing lines after.
 
