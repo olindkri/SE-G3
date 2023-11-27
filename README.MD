@@ -45,5 +45,5 @@ If already in virtual environment:
 
 &nbsp;&nbsp;&nbsp;&nbsp;`coverage report`
 
-If not in a virtual environment, run the first lines in the prototype section. Run the testing lines after.
+If not in a virtual environment, run the first three lines in the prototype section. Run the testing lines after.
 
