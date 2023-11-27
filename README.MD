@@ -7,6 +7,10 @@
 - Sakariya Adan Mahamud
 - Stephen Stenberg
 
+Make sure you have Python 3.8 or newer installed.
+Python version downloads:
+https://www.python.org/downloads/
+
 ## Prototype
 
 **Write the following commands in the terminal or powershell:**
@@ -27,3 +31,13 @@
 **Now you can run the prototype by typing this command in the terminal:**
 
 &nbsp;&nbsp;&nbsp;&nbsp;`flask run`
+
+## Testing
+
+**Write the following commands in the terminal or powershell:**
+> Make sure you are inside the /SE-G3 directory.
+
+If you have already followed the prototype steps:
+&nbsp;&nbsp;&nbsp;&nbsp;`coverage run -m pytest -s -v test/test_app.py`
+&nbsp;&nbsp;&nbsp;&nbsp;`coverage report`
+
