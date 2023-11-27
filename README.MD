@@ -9,7 +9,7 @@
 
 **The project documentation and the individual attachments are inside the documentation folder.**
 
-Link til github repository: https://github.com/olindkri/SE-G3
+Link to github repository: https://github.com/olindkri/SE-G3
 
 Make sure you have Python 3.8 or newer installed.
 Python version downloads:
