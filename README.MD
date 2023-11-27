@@ -24,9 +24,9 @@ https://www.python.org/downloads/
 
 &nbsp;&nbsp;&nbsp;&nbsp;`python -m venv env`
 
-&nbsp;&nbsp;&nbsp;&nbsp;`env/Scripts/activate`
+&nbsp;&nbsp;&nbsp;&nbsp;Windows: `env/Scripts/activate`
 
-&nbsp;&nbsp;&nbsp;&nbsp;`source env/bin/activate`
+&nbsp;&nbsp;&nbsp;&nbsp;MacOS or Linux: `source env/bin/activate`
 
 &nbsp;&nbsp;&nbsp;&nbsp;`pip install -r ./requirements.txt`
 
